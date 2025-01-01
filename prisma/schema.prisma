@@ -1,0 +1,23 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+model Node {
+  id          String   @id @default(cuid())
+  user        String
+  description String
+  sourceLinks Link[]   @relation("Source") // Outgoing links
+  targetLinks Link[]   @relation("Target") // Incoming links
+}
+
+model Link {
+  id         Int    @id @default(autoincrement())
+  source     String
+  target     String
+  sourceNode Node  @relation("Source", fields: [source], references: [id])
+  targetNode Node  @relation("Target", fields: [target], references: [id])
+}
