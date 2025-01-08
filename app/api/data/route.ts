@@ -36,8 +36,8 @@ export async function GET() {
   const graphData = {
     nodes: nodes.map((node) => ({
       id: node.id,
-      user: node.user,
-      description: node.description,
+      user: node.user || "unknown user",
+      description: node.description || "No description provided",
     })),
     links: links.map((link) => ({
       source: link.source,

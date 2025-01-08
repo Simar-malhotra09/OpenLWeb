@@ -13,6 +13,7 @@ logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
 
+API_KEY='AIzaSyA57_dlfoy95dFZ5Q6d7jfkYWJk-bZYvzo'
 MAX_PROMPT_LENGTH= 2048
 
 genai.configure(api_key=API_KEY)
@@ -158,17 +159,18 @@ class ClusterAnalyzer:
         logger.debug(f"Finished processing. Created {len(separated_prompts)} separate prompts")
         return separated_prompts
 
-    def combine_responses(self, cluster_heads: list) -> list:
+    def combine_responses(self, responses: list) -> dict:
         """
         Combines responses from multiple prompts into a single mapping of clusters to headings.
         
         """
-        # combined_cluster_headings = {}
+        combined_cluster_headings = {}
+        for r in responses:
+            for k,v in r.items():
+                combined_cluster_headings[k]=v
 
-        # for k,v in cluster_heads[-1].items():
-        #     combined_cluster_headings[k].append(v)
         
-        return cluster_heads
+        return combined_cluster_headings
 
     def fetch_cluster_heads(self, response_text):
         """Fetches cluster headings from the model's response."""
@@ -236,15 +238,15 @@ class ClusterAnalyzer:
         finally:
             print("Clustering process completed")
 
-if __name__ == "__main__":
-        try:
-            analyzer = ClusterAnalyzer(sentences_file='data.txt') 
-            cluster_heads= analyzer.run()
-            print("Final cluster headings:", cluster_heads)
-        except ValueError as e:
-            print(f"Validation error: {e}")
-        except Exception as e:
-            print(f"Unexpected error: {e}")
+# if __name__ == "__main__":
+#         try:
+#             analyzer = ClusterAnalyzer(sentences_file='data.txt') 
+#             cluster_heads= analyzer.run()
+#             print("Final cluster headings:", cluster_heads)
+#         except ValueError as e:
+#             print(f"Validation error: {e}")
+#         except Exception as e:
+#             print(f"Unexpected error: {e}")
 
 
 
