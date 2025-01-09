@@ -1,48 +1,46 @@
-Machine Learning Basics Introduction to ML concepts
-Deep Learning Tutorial Neural networks explained
-Cooking Italian Pasta Traditional recipes
-Making Pizza New york style
-Narashima Rao Indias prime
-Water Conservation Lesson Understanding faucet flows
-UTM Parameters Explained Usage in tracking URLs
-Cyclophosphamide Overview Cancer treatment
-Nasdaq Insights Financial market overview
-Economic Liberalisation in India Historical perspective
-Gray-Zone Conflict and Hybrid War Strategic failures
-Synthetic Aperture Radar (SAR) Data Applications Overview
-Physics of Microwave Ovens Exploring microwave heating
-War by Carl von Clausewitz Military theory
-Belt and Road Initiative Global infrastructure strategy
-BRICS Economic bloc Overview
-China–India Skirmishes Historical disputes
-People's Liberation Army Overview China's military
-1991 in India Political and economic events
-India's Foreign Policy Strategic considerations
-South China Sea Geopolitical tensions
-Indo-Pakistani War of 1971 Historical conflict
-Bangladesh Liberation War Independence movement
-Richard Nixon's Foreign Policy Strategic actions
-India and the Non-Aligned Movement Overview
-Foreign Exchange Management Act Explained
-Chinese Economic Reform Development strategy
-Stephen Hymer Contributions to economics
-Currencies, Commodities, and Consumption Economic analysis
-Foreign Exchange Market Basics
-Impossible Trinity Economic concept
-Interest Rate Parity Explained
-Bonds in Finance Overview
-GATT: General Agreement on Tariffs and Trade Explained
-Currency Pegs and their usage Economic insights
-Intel 4004 Microprocessor Hall of Fame recognition
-Globant Code Fixer Agent AI application whitepaper
-Kaggle Konwinski Prize AI competition
-Pythagorean Triple Mathematical exploration
-Apple Machine Learning Research Projects
-Automated Trading by Max Dama High-frequency trading insights
-Micro Price Weighted mid-price understanding
-Nuclear Stockpile and Supercomputers National security
-High-Energy Density Plasmas DOE explains
-Semiconductor Device Fabrication Process overview
-Integrated Circuit Design Explained
-Chinese Semiconductor Industry Beijing's strategy
-US-China Semiconductor War Trade disputes and policies
+EVs, https://www.notion.so/EVs-175d838487bf803aa0f4ccc66673813b?pvs=21
+TeachEngineering Lesson, https://www.teachengineering.org/lessons/view/cub_faucets_lesson01
+UTM Parameters, https://en.wikipedia.org/wiki/UTM_parameters
+Cyclophosphamide, https://en.wikipedia.org/wiki/Cyclophosphamide?utm_source=chatgpt.com
+fonc-12-960317.pdf, https://prod-files-secure.s3.us-west-2.amazonaws.com/63ebf540-c5f8-4343-9b72-597d6ff68459/8392f99e-6c31-48d4-8aab-9dd72f73277a/fonc-12-960317.pdf
+Nasdaq, https://en.wikipedia.org/wiki/Nasdaq
+Economic Liberalisation in India, https://en.wikipedia.org/wiki/Economic_liberalisation_in_India
+Blurred Lines Article, https://www.jstor.org/stable/pdf/26868211.pdf?refreqid=fastly-default%3Abb3ac3559dce06cc4286f0335a4002d1&ab_segments=&initiator=&acceptTC=1
+Synthetic Aperture Radar Book, https://www.amazon.com/War-Vom-Kriege-Forgotten-Books/dp/1606800884
+Physics of Microwave Ovens, https://prod-files-secure.s3.us-west-2.amazonaws.com/63ebf540-c5f8-4343-9b72-597d6ff68459/fdb8b83b-2e13-4157-aa1e-6f2638083b5f/physics_of_microwave_ovens.pdf
+Belt and Road Initiative, https://en.wikipedia.org/wiki/Belt_and_Road_Initiative
+BRICS, https://en.wikipedia.org/wiki/BRICS
+China Perspectives Journal, https://journals.openedition.org/chinaperspectives/2853
+2020-2021 China-India Skirmishes, https://en.wikipedia.org/wiki/2020%E2%80%932021_China%E2%80%93India_skirmishes
+2017 China-India Border Standoff, https://en.wikipedia.org/wiki/2017_China%E2%80%93India_border_standoff
+People's Liberation Army, https://en.wikipedia.org/wiki/People's_Liberation_Army
+1991 in India, https://en.wikipedia.org/wiki/1991_in_India
+India Foreign Policy PDF, https://prod-files-secure.s3.us-west-2.amazonaws.com/63ebf540-c5f8-4343-9b72-597d6ff68459/da32c003-9cc7-4cbd-a0d9-02cf6d309988/india_foreign_policy.pdf
+Non-Aligned Forever, https://carnegieendowment.org/posts/2021/03/non-allied-forever-indias-grand-strategy-according-to-subrahmanyam-jaishankar?lang=en
+South China Sea, https://en.wikipedia.org/wiki/South_China_Sea
+Brahmaputra River, https://en.wikipedia.org/wiki/Brahmaputra_River
+Indo-Pakistani War of 1971, https://en.wikipedia.org/wiki/Indo-Pakistani_war_of_1971
+Bangladesh Liberation War, https://en.wikipedia.org/wiki/Bangladesh_Liberation_War
+Foreign Policy of Nixon Administration, https://en.wikipedia.org/wiki/Foreign_policy_of_the_Richard_Nixon_administration
+India and NAM, https://en.wikipedia.org/wiki/India_and_the_Non-Aligned_Movement
+FEMA, https://en.wikipedia.org/wiki/Foreign_Exchange_Management_Act
+Chinese Economic Reform, https://en.wikipedia.org/wiki/Chinese_economic_reform
+Stephen Hymer, https://en.wikipedia.org/wiki/Stephen_Hymer
+Intel 4004 Microprocessor, https://spectrum.ieee.org/chip-hall-of-fame-intel-4004-microprocessor
+ArXiv Chapter 1, https://arxiv.org/html/2412.05265v1#Ch1.S1
+EPA, https://www.epa.gov/
+Globant Code Fixer Agent, https://ai.globant.com/wp-content/uploads/2024/11/Whitepaper-Globant-Code-Fixer-Agent.pdf
+ArXiv Abs Paper, https://arxiv.org/abs/2412.02730
+Headlong GitHub, https://github.com/andyk/headlong
+Konwinski Prize, https://www.kaggle.com/competitions/konwinski-prize?utm_medium=email&utm_source=gamma&utm_campaign=comp-konwinski-prize-2025
+ArXiv HTML, https://arxiv.org/html/2402.13220v2
+Pythagorean Triple, https://en.wikipedia.org/wiki/Pythagorean_triple
+Apple ML Research, https://machinelearning.apple.com/research
+ArXiv PDF, https://arxiv.org/vc/arxiv/papers/1601/1601.00991v1.pdf
+Max Dama Automated Trading, https://www.notion.so/Read-12bd838487bf807d969ae38a670414c2?pvs=21
+Quant StackExchange, https://quant.stackexchange.com/questions/50651/how-to-understand-micro-price-aka-weighted-mid-price
+Max Dama Quant Trading, https://www.notion.so/Read-12bd838487bf807d969ae38a670414c2?pvs=21
+Max Dama HFT Blog, https://jspauld.com/post/35126549635/how-i-made-500k-with-machine-learning-and-hft
+Quantpedia Blog, https://quantpedia.com/blog/
+Abrdn Website, https://www.abrdnifn.com/
+Economic Security Dilemma, https://ndupress.ndu.edu/Portals/68/240805_2_Christie-Wigell%20-%20Econ%20Sec%20Dilemma%20-%20MM.pdf
