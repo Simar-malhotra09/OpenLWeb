@@ -23,37 +23,64 @@ MAX_PROMPT_LENGTH= 2048
 genai.configure(api_key=API_KEY)
 
 class ClusterAnalyzer:
-    def __init__(self, sentences_file: str, num_clusters_ratio: float = 0.15):
-        self.sentences_file = sentences_file
+    def __init__(self, data_file: str, num_clusters_ratio: float = 0.15):
+        self.data_file = data_file
         self.num_clusters_ratio = num_clusters_ratio
         self.model = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
         self.clusters = {}
         self.top_keywords_per_cluster_tfidf = []
 
-    def load_sentences(self):
-        """Loads sentences from a file."""
-        with open(self.sentences_file, 'r') as file:
-            self.sentences = file.read().splitlines()
+    def load_titles_and_links(self) -> list[dict[str, str]]:
+        """Loads titles and links from a file."""
+        try:
+            with open(self.data_file, 'r') as file:
+                lines = file.read().splitlines()
+
+            # Initialize titles, links, and data_dict in a single pass
+            self.titles = []
+            self.links = []
+            data_dict = []
+
+            for line in lines:
+                try:
+                    title, link = line.split(",", 1) 
+                    title, link = title.strip(), link.strip()
+                    self.titles.append(title)
+                    self.links.append(link)
+                    data_dict.append({"title": title, "link": link})
+    
+                except ValueError:
+                    raise ValueError(
+                        f"Malformed line: '{line}'. Ensure each line contains exactly one comma."
+                    )
+            self.data_dict = data_dict
+
+            return data_dict
+
+        except FileNotFoundError:
+            raise FileNotFoundError(f"File not found: {self.data_file}")
+
 
     def generate_embeddings(self):
-        """Generates sentence embeddings using the SentenceTransformer model."""
-        self.embeddings = self.model.encode(self.sentences)
+        """Generates title embeddings using the SentenceTransformer model."""
+        self.embeddings = self.model.encode(self.titles)
+        return self.embeddings[0]
 
     def apply_kmeans(self):
-        """Applies KMeans clustering to the sentence embeddings."""
-        num_clusters = math.ceil(len(self.sentences) * self.num_clusters_ratio)
+        """Applies KMeans clustering to the title embeddings."""
+        num_clusters = math.ceil(len(self.titles) * self.num_clusters_ratio)
         kmeans = KMeans(n_clusters=num_clusters, random_state=42)
         kmeans_labels = kmeans.fit_predict(self.embeddings)
         
         for idx, label in enumerate(kmeans_labels):
             cluster_key = f"K-Means Cluster {label}"
-            self.clusters.setdefault(cluster_key, []).append(self.sentences[idx])
+            self.clusters.setdefault(cluster_key, []).append(self.titles[idx])
 
     def extract_top_keywords(self):
         """Extracts top keywords per cluster using TF-IDF."""
-        for cluster_id, cluster_sentences in self.clusters.items():
+        for cluster_id, cluster_titles in self.clusters.items():
             tfidf_vectorizer = TfidfVectorizer(stop_words='english')
-            tfidf_matrix = tfidf_vectorizer.fit_transform(cluster_sentences)
+            tfidf_matrix = tfidf_vectorizer.fit_transform(cluster_titles)
             feature_array = np.array(tfidf_vectorizer.get_feature_names_out())
             tfidf_sorting = np.argsort(tfidf_matrix.toarray().sum(axis=0))[::-1]
             top_keywords = feature_array[tfidf_sorting][:3]
@@ -183,32 +210,41 @@ class ClusterAnalyzer:
 
 
     def combine_cluster_headers_and_data(self, final_cluster_headers: dict) -> dict:
+
         cluster_headers_and_data = {"nodes": [], "links": []}
 
         # Add cluster header nodes
         for idx, chs in final_cluster_headers.items():
             node = {
-                "id": idx,  # Use idx as unique ID for cluster headers
+                "id": idx,  
                 "user": "admin",
-                "description": chs
+                "title": chs
             }
             cluster_headers_and_data["nodes"].append(node)
 
-        # Add nodes and links for cluster sentences
-        for cluster_id, cluster_sentences in self.clusters.items():
-            for sentence in cluster_sentences:
-                node = {
-                    "id": str(uuid.uuid4()),  # Unique ID for each sentence
-                    "user": "admin",
-                    "description": sentence  # Sentence as the description
-                }
-                cluster_headers_and_data["nodes"].append(node)
+        # Add nodes and links for cluster titles
+        for cluster_id, cluster_titles in self.clusters.items():
+            for title in cluster_titles:
+                # Find the corresponding link for the title in self.data_dict
+                matched_item = next((item for item in self.data_dict if item["title"] == title), None)
 
-                link = {
-                    "source": node["id"],  # Link the sentence node to the cluster header
-                    "target": cluster_id.split()[-1]
-                }
-                cluster_headers_and_data["links"].append(link)
+                if matched_item:
+                    node = {
+                        "id": str(uuid.uuid4()),  
+                        "user": "admin",
+                        "title": title,
+                        "link": matched_item["link"],  # Use the link from the matched item
+                    }
+
+                    cluster_headers_and_data["nodes"].append(node)
+
+                    link = {
+                        "source": node["id"],  # Link the title node to the cluster header
+                        "target": cluster_id.split()[-1],
+                    }
+                    cluster_headers_and_data["links"].append(link)
+
+        print("__________________WRITING TO JSON FILE___________")
 
         # Write to JSON file for easy viewing
         with open('cluster_data.json', 'w') as json_file:
@@ -227,7 +263,7 @@ class ClusterAnalyzer:
         
         """
         # Initialize clustering
-        self.load_sentences()
+        self.load_titles_and_links()
         self.generate_embeddings()
         self.apply_kmeans()
         self.extract_top_keywords()
@@ -275,8 +311,11 @@ class ClusterAnalyzer:
                 return cluster_headers_and_data
             
             else:
-                # Handle single prompt
-                return get_model_response(prompt)
+                cluster_heads=get_model_response(prompt)
+                cluster_headers_and_data= self.combine_cluster_headers_and_data(cluster_heads)
+                print("Successfully combined headers and data")
+                return cluster_headers_and_data
+
                 
         except Exception as e:
             print(f"Error in clustering process: {str(e)}")
@@ -287,7 +326,14 @@ class ClusterAnalyzer:
 
 if __name__ == "__main__":
         try:
-            analyzer = ClusterAnalyzer(sentences_file='data.txt') 
+            analyzer = ClusterAnalyzer(data_file='data.txt') 
+
+            # titles_and_links= analyzer.load_titles_and_links()
+            # print(titles_and_links)
+
+            # embds= analyzer.generate_embeddings()
+            # print(embds)
+
             cluster_heads= analyzer.run()
             print("Final cluster headings:", cluster_heads)
         except ValueError as e:
