@@ -7,17 +7,23 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 model Node {
-  id          String   @id @default(cuid())
+  id          String   @id @default(uuid())
   user        String
-  description String
-  sourceLinks Link[]   @relation("Source") // Outgoing links
-  targetLinks Link[]   @relation("Target") // Incoming links
+  title       String
+ 
+  
+  // Relations
+  sourceLinks Link[]   @relation("SourceNode")
+  targetLinks Link[]   @relation("TargetNode")
 }
 
 model Link {
-  id         Int    @id @default(autoincrement())
-  source     String
-  target     String
-  sourceNode Node  @relation("Source", fields: [source], references: [id])
-  targetNode Node  @relation("Target", fields: [target], references: [id])
+  id          String   @id @default(uuid())
+  sourceId    String
+  targetId    String
+  source      Node     @relation("SourceNode", fields: [sourceId], references: [id])
+  target      Node     @relation("TargetNode", fields: [targetId], references: [id])
+
+  @@index([sourceId])
+  @@index([targetId])
 }

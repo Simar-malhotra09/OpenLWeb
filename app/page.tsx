@@ -3,21 +3,25 @@
 import { useEffect, useState } from "react";
 import { ForceGraph3D } from "react-force-graph";
 
-type Node = {
+interface Node {
   id: string;
   user: string;
-  description: string;
-};
+  title: string;
+  sourceLinks: Link[];
+  targetLinks: Link[];
+}
 
-type Link = {
+interface Link {
   source: string;
   target: string;
-};
+  sourceNode: Node;
+  targetNode: Node;
+}
 
-type GraphData = {
+interface GraphData {
   nodes: Node[];
   links: Link[];
-};
+}
 
 export default function Page() {
   const [graphData, setGraphData] = useState<GraphData | null>(null);
@@ -32,14 +36,38 @@ export default function Page() {
     fetchGraphData();
   }, []);
 
+  const emitParticles = (link: Link) => {
+    return {
+      particleSpeed: 0.5,
+      particleWidth: 1,
+      particleColor: "red",
+    };
+  };
+
   return (
     <div style={{ width: "100vw", height: "100vh" }}>
       {graphData ? (
         <ForceGraph3D
           graphData={graphData}
-          nodeLabel={(node) => `${node.user}: ${node.description}`}
+          backgroundColor="black"
+          nodeLabel={(node) => `${node.user}: ${node.title}`}
+          nodeColor={(node) => "white"}
+          nodeRelSize={6}
           nodeAutoColorBy="user"
-          linkDirectionalParticles={1}
+          linkColor="red"
+          linkOpacity={0.9}
+          linkDirectionalParticles={1} // Enables particle emission
+          linkCurvature={0}
+          // Emit particles when links are interacted with
+          linkDirectionalParticleSpeed={(link) =>
+            emitParticles(link).particleSpeed
+          } // Controls particle speed
+          linkDirectionalParticleWidth={(link) =>
+            emitParticles(link).particleWidth
+          } // Controls particle width
+          linkDirectionalParticleColor={(link) =>
+            emitParticles(link).particleColor
+          } // Controls particle color
         />
       ) : (
         <div>Loading graph...</div>

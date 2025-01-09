@@ -7,7 +7,11 @@ import math
 from sklearn.feature_extraction.text import TfidfVectorizer
 import numpy as np 
 import google.generativeai as genai
+import random
+import uuid
+import json
 import logging
+
 
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
@@ -175,6 +179,47 @@ class ClusterAnalyzer:
     def fetch_cluster_heads(self, response_text):
         """Fetches cluster headings from the model's response."""
         return self.get_cluster_heads_from_response(response_text)
+    
+
+
+    def combine_cluster_headers_and_data(self, final_cluster_headers: dict) -> dict:
+        cluster_headers_and_data = {"nodes": [], "links": []}
+
+        # Add cluster header nodes
+        for idx, chs in final_cluster_headers.items():
+            node = {
+                "id": idx,  # Use idx as unique ID for cluster headers
+                "user": "admin",
+                "description": chs
+            }
+            cluster_headers_and_data["nodes"].append(node)
+
+        # Add nodes and links for cluster sentences
+        for cluster_id, cluster_sentences in self.clusters.items():
+            for sentence in cluster_sentences:
+                node = {
+                    "id": str(uuid.uuid4()),  # Unique ID for each sentence
+                    "user": "admin",
+                    "description": sentence  # Sentence as the description
+                }
+                cluster_headers_and_data["nodes"].append(node)
+
+                link = {
+                    "source": node["id"],  # Link the sentence node to the cluster header
+                    "target": cluster_id.split()[-1]
+                }
+                cluster_headers_and_data["links"].append(link)
+
+        # Write to JSON file for easy viewing
+        with open('cluster_data.json', 'w') as json_file:
+            json.dump(cluster_headers_and_data, json_file, indent=4)
+
+        return cluster_headers_and_data
+
+        
+
+
+
 
     def run(self):
         """
@@ -225,7 +270,9 @@ class ClusterAnalyzer:
                 
                 final_cluster_heads = self.combine_responses(responses)
                 print("Successfully combined responses from all prompts")
-                return final_cluster_heads
+                cluster_headers_and_data= self.combine_cluster_headers_and_data(final_cluster_heads)
+                print("Successfully combined headers and data")
+                return cluster_headers_and_data
             
             else:
                 # Handle single prompt
@@ -238,15 +285,15 @@ class ClusterAnalyzer:
         finally:
             print("Clustering process completed")
 
-# if __name__ == "__main__":
-#         try:
-#             analyzer = ClusterAnalyzer(sentences_file='data.txt') 
-#             cluster_heads= analyzer.run()
-#             print("Final cluster headings:", cluster_heads)
-#         except ValueError as e:
-#             print(f"Validation error: {e}")
-#         except Exception as e:
-#             print(f"Unexpected error: {e}")
+if __name__ == "__main__":
+        try:
+            analyzer = ClusterAnalyzer(sentences_file='data.txt') 
+            cluster_heads= analyzer.run()
+            print("Final cluster headings:", cluster_heads)
+        except ValueError as e:
+            print(f"Validation error: {e}")
+        except Exception as e:
+            print(f"Unexpected error: {e}")
 
 
 
