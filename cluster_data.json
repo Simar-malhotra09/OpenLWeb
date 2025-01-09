@@ -1,478 +1,501 @@
 {
     "nodes": [
         {
-            "id": "1",
-            "user": "admin",
-            "description": "Machine Learning Fundamentals"
-        },
-        {
-            "id": "4",
-            "user": "admin",
-            "description": "Cancer Treatment Protocols"
-        },
-        {
-            "id": "3",
-            "user": "admin",
-            "description": "Global Infrastructure Strategies"
-        },
-        {
-            "id": "5",
-            "user": "admin",
-            "description": "Indian Economic History"
-        },
-        {
             "id": "0",
             "user": "admin",
-            "description": "Military Theory and Warfare"
+            "title": "India-China Geopolitical Relations and Economic Policy"
         },
         {
-            "id": "6",
+            "id": "1",
             "user": "admin",
-            "description": "Microwave and SAR Technology"
-        },
-        {
-            "id": "7",
-            "user": "admin",
-            "description": "Economic Analysis and Overview"
+            "title": "Quantitative Finance and Oncology Drug Information"
         },
         {
             "id": "2",
             "user": "admin",
-            "description": "AI Applications and Competitions"
+            "title": "Physics and UTM Parameter Tracking"
         },
         {
-            "id": "73a981e8-22cf-4166-8ab4-b5d0da6fb8b9",
+            "id": "3",
             "user": "admin",
-            "description": "Machine Learning Basics Introduction to ML concepts"
+            "title": "Scientific Publications and Documentation"
         },
         {
-            "id": "44bc9c3a-9ccf-44a0-a523-5d3dc6496e5e",
+            "id": "4",
             "user": "admin",
-            "description": "Deep Learning Tutorial Neural networks explained"
+            "title": "Electric Vehicles and Environmental Policy (EVs & EPA)"
         },
         {
-            "id": "1289b503-2689-46a6-9f45-9b8c83aa0faa",
+            "id": "5",
             "user": "admin",
-            "description": "Water Conservation Lesson Understanding faucet flows"
+            "title": "Disaster Response and Infrastructure Projects (FEMA & BRI)"
         },
         {
-            "id": "eedf3b26-5c93-431b-a9c3-fbc84adb5f07",
+            "id": "6",
             "user": "admin",
-            "description": "UTM Parameters Explained Usage in tracking URLs"
+            "title": "India-China Border Conflicts and Military Forces"
         },
         {
-            "id": "b69e3087-05d6-42f9-b702-2f63de0af57d",
+            "id": "7f40a70d-9b8e-4082-8c83-55f0f29dfa9c",
             "user": "admin",
-            "description": "Nasdaq Insights Financial market overview"
+            "title": "EVs",
+            "link": "https://www.notion.so/EVs-175d838487bf803aa0f4ccc66673813b?pvs=21"
         },
         {
-            "id": "233ec0d3-fa11-4c34-8a47-fd1172c4d628",
+            "id": "cd5d62b0-e228-42b9-bf18-0d26022a7c7b",
             "user": "admin",
-            "description": "Foreign Exchange Management Act Explained"
+            "title": "TeachEngineering Lesson",
+            "link": "https://www.teachengineering.org/lessons/view/cub_faucets_lesson01"
         },
         {
-            "id": "dbd2f9cf-bcf6-437a-be58-7e6e60f1ac42",
+            "id": "c85b958d-2a30-4753-af75-f2a9717cd1d8",
             "user": "admin",
-            "description": "Foreign Exchange Market Basics"
+            "title": "BRICS",
+            "link": "https://en.wikipedia.org/wiki/BRICS"
         },
         {
-            "id": "fb38fa37-1f63-4db5-ac14-decb701901d5",
+            "id": "7c758345-76fb-4cde-a034-c8ab8382dde3",
             "user": "admin",
-            "description": "Interest Rate Parity Explained"
+            "title": "EPA",
+            "link": "https://www.epa.gov/"
         },
         {
-            "id": "caba94fb-91b6-4d06-9553-d718154fd5b8",
+            "id": "695823f7-721f-4670-ac1b-118b01278178",
             "user": "admin",
-            "description": "Automated Trading by Max Dama High-frequency trading insights"
+            "title": "Max Dama Automated Trading",
+            "link": "https://www.notion.so/Read-12bd838487bf807d969ae38a670414c2?pvs=21"
         },
         {
-            "id": "a8e3e337-3f5c-413a-9688-a99a72a101db",
+            "id": "4b65e881-a73c-48a0-aeb1-c36a28e0a7e5",
             "user": "admin",
-            "description": "Cooking Italian Pasta Traditional recipes"
+            "title": "UTM Parameters",
+            "link": "https://en.wikipedia.org/wiki/UTM_parameters"
         },
         {
-            "id": "88385c4c-85d5-42d7-afe3-7d5bcf94576a",
+            "id": "3bd76bca-ad1d-4a5d-bc39-e3eaee4586cc",
             "user": "admin",
-            "description": "Cyclophosphamide Overview Cancer treatment"
+            "title": "Physics of Microwave Ovens",
+            "link": "https://prod-files-secure.s3.us-west-2.amazonaws.com/63ebf540-c5f8-4343-9b72-597d6ff68459/fdb8b83b-2e13-4157-aa1e-6f2638083b5f/physics_of_microwave_ovens.pdf"
         },
         {
-            "id": "ae69dab2-af86-49f9-b52c-dccbf8260552",
+            "id": "dfa0b2fb-3017-449c-91da-c0deb04cfcdd",
             "user": "admin",
-            "description": "Making Pizza New york style"
+            "title": "Intel 4004 Microprocessor",
+            "link": "https://spectrum.ieee.org/chip-hall-of-fame-intel-4004-microprocessor"
         },
         {
-            "id": "e2010d96-167a-4cdc-9068-dcc9b6117dcc",
+            "id": "727d5a3b-153b-4e66-87ee-38506c3f5d27",
             "user": "admin",
-            "description": "Belt and Road Initiative Global infrastructure strategy"
+            "title": "Cyclophosphamide",
+            "link": "https://en.wikipedia.org/wiki/Cyclophosphamide?utm_source=chatgpt.com"
         },
         {
-            "id": "c3198298-4be1-42ae-a756-2377f667e603",
+            "id": "a527ac87-d1ff-46bc-bab8-dcc51072f459",
             "user": "admin",
-            "description": "Richard Nixon's Foreign Policy Strategic actions"
+            "title": "Nasdaq",
+            "link": "https://en.wikipedia.org/wiki/Nasdaq"
         },
         {
-            "id": "6f3c71a9-e40b-40fd-a021-533511093e59",
+            "id": "1e4a9702-4386-48ab-b86f-d355b0157ec6",
             "user": "admin",
-            "description": "Chinese Economic Reform Development strategy"
+            "title": "Blurred Lines Article",
+            "link": "https://www.jstor.org/stable/pdf/26868211.pdf?refreqid=fastly-default%3Abb3ac3559dce06cc4286f0335a4002d1&ab_segments=&initiator=&acceptTC=1"
         },
         {
-            "id": "cc67afd7-061a-4b97-b130-d0811647ed58",
+            "id": "04c6aa3c-6d79-41ae-9846-aedd214287ea",
             "user": "admin",
-            "description": "Semiconductor Device Fabrication Process overview"
+            "title": "China Perspectives Journal",
+            "link": "https://journals.openedition.org/chinaperspectives/2853"
         },
         {
-            "id": "bb9a3a17-11f5-476a-9313-16531da097be",
+            "id": "af76c059-b2ec-40cc-bc05-2656bd8e7fc6",
             "user": "admin",
-            "description": "Integrated Circuit Design Explained"
+            "title": "Globant Code Fixer Agent",
+            "link": "https://ai.globant.com/wp-content/uploads/2024/11/Whitepaper-Globant-Code-Fixer-Agent.pdf"
         },
         {
-            "id": "a93678d1-b045-45ea-a339-310f97d3ac70",
+            "id": "06cb57f6-077b-4f1e-be5c-c801dd87269d",
             "user": "admin",
-            "description": "Chinese Semiconductor Industry Beijing's strategy"
+            "title": "Headlong GitHub",
+            "link": "https://github.com/andyk/headlong"
         },
         {
-            "id": "8ffe5a72-2d73-41a8-bfb9-1c96a103ad92",
+            "id": "8e4949d9-1363-4264-8b61-f9a93cd24438",
             "user": "admin",
-            "description": "US-China Semiconductor War Trade disputes and policies"
+            "title": "Konwinski Prize",
+            "link": "https://www.kaggle.com/competitions/konwinski-prize?utm_medium=email&utm_source=gamma&utm_campaign=comp-konwinski-prize-2025"
         },
         {
-            "id": "0aad0422-fcfb-40ac-9ac2-b3f84497be8c",
+            "id": "2f988220-de83-4f2c-ade7-32b2c5c4fcb6",
             "user": "admin",
-            "description": "Narashima Rao Indias prime"
+            "title": "Apple ML Research",
+            "link": "https://machinelearning.apple.com/research"
         },
         {
-            "id": "09ccb71e-f6e3-414d-9803-5da084625c88",
+            "id": "cc4ba8fb-05e9-4c64-a606-56a4427cee0e",
             "user": "admin",
-            "description": "Economic Liberalisation in India Historical perspective"
+            "title": "Quant StackExchange",
+            "link": "https://quant.stackexchange.com/questions/50651/how-to-understand-micro-price-aka-weighted-mid-price"
         },
         {
-            "id": "433f64ea-4c3a-4de7-ab28-e628b2856242",
+            "id": "dab13414-df91-444d-a84a-d61130c89601",
             "user": "admin",
-            "description": "China\u2013India Skirmishes Historical disputes"
+            "title": "Max Dama Quant Trading",
+            "link": "https://www.notion.so/Read-12bd838487bf807d969ae38a670414c2?pvs=21"
         },
         {
-            "id": "e40affb0-1e54-455c-878a-8a44011f0a54",
+            "id": "6a380717-f76a-429b-99ee-84aad73249c5",
             "user": "admin",
-            "description": "1991 in India Political and economic events"
+            "title": "Max Dama HFT Blog",
+            "link": "https://jspauld.com/post/35126549635/how-i-made-500k-with-machine-learning-and-hft"
         },
         {
-            "id": "0c7242c1-0c44-45d5-a1b4-f0e9019d842a",
+            "id": "9c09028c-f986-4c93-86b7-830ddd801293",
             "user": "admin",
-            "description": "India's Foreign Policy Strategic considerations"
+            "title": "Quantpedia Blog",
+            "link": "https://quantpedia.com/blog/"
         },
         {
-            "id": "9fced328-76dd-4cda-bca6-44908bc1027a",
+            "id": "c7ba45f6-577f-4814-bb80-967ab8481289",
             "user": "admin",
-            "description": "Indo-Pakistani War of 1971 Historical conflict"
+            "title": "Abrdn Website",
+            "link": "https://www.abrdnifn.com/"
         },
         {
-            "id": "ac0fd78b-2e0a-4f05-a845-085a58dad321",
+            "id": "cb53aa5a-3965-4a51-b1b0-526bf533ae39",
             "user": "admin",
-            "description": "India and the Non-Aligned Movement Overview"
+            "title": "fonc-12-960317.pdf",
+            "link": "https://prod-files-secure.s3.us-west-2.amazonaws.com/63ebf540-c5f8-4343-9b72-597d6ff68459/8392f99e-6c31-48d4-8aab-9dd72f73277a/fonc-12-960317.pdf"
         },
         {
-            "id": "da0e5365-14db-4178-84e1-1c38a5655b11",
+            "id": "784f29c6-36f9-497b-898a-8d7b4f1e60b9",
             "user": "admin",
-            "description": "Gray-Zone Conflict and Hybrid War Strategic failures"
+            "title": "Synthetic Aperture Radar Book",
+            "link": "https://www.amazon.com/War-Vom-Kriege-Forgotten-Books/dp/1606800884"
         },
         {
-            "id": "26864a48-258a-451e-80d8-592330415dd5",
+            "id": "fcb958a2-6d54-4470-bad4-64bdf899b810",
             "user": "admin",
-            "description": "War by Carl von Clausewitz Military theory"
+            "title": "Stephen Hymer",
+            "link": "https://en.wikipedia.org/wiki/Stephen_Hymer"
         },
         {
-            "id": "2d1886ff-fbbb-4d5b-bbbb-4bbf7bf71177",
+            "id": "6d78a7cf-57ae-4882-abb2-0617e7776037",
             "user": "admin",
-            "description": "People's Liberation Army Overview China's military"
+            "title": "ArXiv Chapter 1",
+            "link": "https://arxiv.org/html/2412.05265v1#Ch1.S1"
         },
         {
-            "id": "56e105b8-9a25-493c-b0c2-17159490cf9c",
+            "id": "bf5a3da3-60d5-4712-a564-30d516e64827",
             "user": "admin",
-            "description": "South China Sea Geopolitical tensions"
+            "title": "ArXiv Abs Paper",
+            "link": "https://arxiv.org/abs/2412.02730"
         },
         {
-            "id": "738ec426-5e3f-414c-b3ea-6059a20aa3ed",
+            "id": "8876d01e-f8dd-4187-9672-463bfb1e4dee",
             "user": "admin",
-            "description": "Bangladesh Liberation War Independence movement"
+            "title": "ArXiv HTML",
+            "link": "https://arxiv.org/html/2402.13220v2"
         },
         {
-            "id": "67902986-5376-4ca3-84e5-670e7c0ab234",
+            "id": "434a397a-ee04-4ee8-8793-f847037dde2e",
             "user": "admin",
-            "description": "Synthetic Aperture Radar (SAR) Data Applications Overview"
+            "title": "ArXiv PDF",
+            "link": "https://arxiv.org/vc/arxiv/papers/1601/1601.00991v1.pdf"
         },
         {
-            "id": "7767133f-a529-43cd-b37e-a71936a741f7",
+            "id": "c6ab614d-1f4e-41bd-bb5a-511f5c79d9de",
             "user": "admin",
-            "description": "Physics of Microwave Ovens Exploring microwave heating"
+            "title": "Economic Liberalisation in India",
+            "link": "https://en.wikipedia.org/wiki/Economic_liberalisation_in_India"
         },
         {
-            "id": "1c8512bd-441d-495f-bc63-83b14f5a727a",
+            "id": "f472cb3d-4811-4663-9f87-76227176aae2",
             "user": "admin",
-            "description": "BRICS Economic bloc Overview"
+            "title": "2017 China-India Border Standoff",
+            "link": "https://en.wikipedia.org/wiki/2017_China%E2%80%93India_border_standoff"
         },
         {
-            "id": "a9a32baa-911d-4cdb-aa7c-b3a31f71c843",
+            "id": "ad7d8d3d-4888-47a4-873a-612de5521af1",
             "user": "admin",
-            "description": "Stephen Hymer Contributions to economics"
+            "title": "India Foreign Policy PDF",
+            "link": "https://prod-files-secure.s3.us-west-2.amazonaws.com/63ebf540-c5f8-4343-9b72-597d6ff68459/da32c003-9cc7-4cbd-a0d9-02cf6d309988/india_foreign_policy.pdf"
         },
         {
-            "id": "b25fd384-d196-481c-a7f9-adf0d33af381",
+            "id": "b4626b22-63f8-44c3-bfe4-ca2f63f77b3a",
             "user": "admin",
-            "description": "Currencies, Commodities, and Consumption Economic analysis"
+            "title": "Indo-Pakistani War of 1971",
+            "link": "https://en.wikipedia.org/wiki/Indo-Pakistani_war_of_1971"
         },
         {
-            "id": "12d38b3f-5eef-4d10-bd10-f9d8611c1d6a",
+            "id": "3ddd2b0c-3f37-49ac-b625-64d5d83919c2",
             "user": "admin",
-            "description": "Impossible Trinity Economic concept"
+            "title": "Foreign Policy of Nixon Administration",
+            "link": "https://en.wikipedia.org/wiki/Foreign_policy_of_the_Richard_Nixon_administration"
         },
         {
-            "id": "2629949c-da8d-47f5-a5be-b8544eca48d5",
+            "id": "cd2702af-92b4-4b95-ad4c-d072039e46fc",
             "user": "admin",
-            "description": "Bonds in Finance Overview"
+            "title": "Chinese Economic Reform",
+            "link": "https://en.wikipedia.org/wiki/Chinese_economic_reform"
         },
         {
-            "id": "793f25c1-ea77-42c4-b2e4-27913ff3227c",
+            "id": "92996c5d-42b3-4c6f-9019-e4cec237c3e7",
             "user": "admin",
-            "description": "GATT: General Agreement on Tariffs and Trade Explained"
+            "title": "Economic Security Dilemma",
+            "link": "https://ndupress.ndu.edu/Portals/68/240805_2_Christie-Wigell%20-%20Econ%20Sec%20Dilemma%20-%20MM.pdf"
         },
         {
-            "id": "2fbcfae9-34e4-4391-b041-9195ac8046eb",
+            "id": "5e68b875-836a-4efc-a29b-25d15eafea62",
             "user": "admin",
-            "description": "Currency Pegs and their usage Economic insights"
+            "title": "Belt and Road Initiative",
+            "link": "https://en.wikipedia.org/wiki/Belt_and_Road_Initiative"
         },
         {
-            "id": "d26ece43-f66a-4ebb-8e19-4cdc9be220a9",
+            "id": "be7f35f0-554a-451e-bc76-feb19bee0621",
             "user": "admin",
-            "description": "Pythagorean Triple Mathematical exploration"
+            "title": "FEMA",
+            "link": "https://en.wikipedia.org/wiki/Foreign_Exchange_Management_Act"
         },
         {
-            "id": "4629d1f8-54f5-4838-98dc-86008c7d6f80",
+            "id": "c037ccbd-af8c-443b-8f16-881d34428360",
             "user": "admin",
-            "description": "Micro Price Weighted mid-price understanding"
+            "title": "Pythagorean Triple",
+            "link": "https://en.wikipedia.org/wiki/Pythagorean_triple"
         },
         {
-            "id": "5e3c0e35-7da2-4eea-81dc-a67afa290e3d",
+            "id": "e45f06a5-0335-4239-93a5-e753ef932a74",
             "user": "admin",
-            "description": "Intel 4004 Microprocessor Hall of Fame recognition"
+            "title": "2020-2021 China-India Skirmishes",
+            "link": "https://en.wikipedia.org/wiki/2020%E2%80%932021_China%E2%80%93India_skirmishes"
         },
         {
-            "id": "db1c4f0f-3017-4568-9997-85c544c5cc6f",
+            "id": "b8cb2597-ec32-492f-acfe-9a45c0202129",
             "user": "admin",
-            "description": "Globant Code Fixer Agent AI application whitepaper"
+            "title": "People's Liberation Army",
+            "link": "https://en.wikipedia.org/wiki/People's_Liberation_Army"
         },
         {
-            "id": "2170b8fb-a7b7-4e29-aa2a-149708e1874a",
+            "id": "a6e4282d-58f2-40f6-b557-f76a2c5b2c45",
             "user": "admin",
-            "description": "Kaggle Konwinski Prize AI competition"
+            "title": "1991 in India",
+            "link": "https://en.wikipedia.org/wiki/1991_in_India"
         },
         {
-            "id": "7fa9b563-fd7c-4f01-9f65-4490cc639ae7",
+            "id": "35d62ad8-66c6-4125-b775-1203448fd673",
             "user": "admin",
-            "description": "Apple Machine Learning Research Projects"
+            "title": "Non-Aligned Forever",
+            "link": "https://carnegieendowment.org/posts/2021/03/non-allied-forever-indias-grand-strategy-according-to-subrahmanyam-jaishankar?lang=en"
         },
         {
-            "id": "39c86c6c-3c2e-4f76-ab7f-e8d0b62aaa77",
+            "id": "826fa1a2-f8e4-4bbd-b337-3694cdf199a0",
             "user": "admin",
-            "description": "Nuclear Stockpile and Supercomputers National security"
+            "title": "South China Sea",
+            "link": "https://en.wikipedia.org/wiki/South_China_Sea"
         },
         {
-            "id": "982dcdc1-507f-47c2-9745-0af710da0348",
+            "id": "74abaa32-3e9d-4733-b2c1-3db206ded38d",
             "user": "admin",
-            "description": "High-Energy Density Plasmas DOE explains"
+            "title": "Brahmaputra River",
+            "link": "https://en.wikipedia.org/wiki/Brahmaputra_River"
+        },
+        {
+            "id": "ad8808ee-3aa3-435d-9966-f9c9d6401669",
+            "user": "admin",
+            "title": "Bangladesh Liberation War",
+            "link": "https://en.wikipedia.org/wiki/Bangladesh_Liberation_War"
+        },
+        {
+            "id": "087dc8c3-a5b8-42ae-89d1-9711fe5afafb",
+            "user": "admin",
+            "title": "India and NAM",
+            "link": "https://en.wikipedia.org/wiki/India_and_the_Non-Aligned_Movement"
         }
     ],
     "links": [
         {
-            "source": "73a981e8-22cf-4166-8ab4-b5d0da6fb8b9",
-            "target": "1"
-        },
-        {
-            "source": "44bc9c3a-9ccf-44a0-a523-5d3dc6496e5e",
-            "target": "1"
-        },
-        {
-            "source": "1289b503-2689-46a6-9f45-9b8c83aa0faa",
-            "target": "1"
-        },
-        {
-            "source": "eedf3b26-5c93-431b-a9c3-fbc84adb5f07",
-            "target": "1"
-        },
-        {
-            "source": "b69e3087-05d6-42f9-b702-2f63de0af57d",
-            "target": "1"
-        },
-        {
-            "source": "233ec0d3-fa11-4c34-8a47-fd1172c4d628",
-            "target": "1"
-        },
-        {
-            "source": "dbd2f9cf-bcf6-437a-be58-7e6e60f1ac42",
-            "target": "1"
-        },
-        {
-            "source": "fb38fa37-1f63-4db5-ac14-decb701901d5",
-            "target": "1"
-        },
-        {
-            "source": "caba94fb-91b6-4d06-9553-d718154fd5b8",
-            "target": "1"
-        },
-        {
-            "source": "a8e3e337-3f5c-413a-9688-a99a72a101db",
+            "source": "7f40a70d-9b8e-4082-8c83-55f0f29dfa9c",
             "target": "4"
         },
         {
-            "source": "88385c4c-85d5-42d7-afe3-7d5bcf94576a",
+            "source": "cd5d62b0-e228-42b9-bf18-0d26022a7c7b",
             "target": "4"
         },
         {
-            "source": "ae69dab2-af86-49f9-b52c-dccbf8260552",
+            "source": "c85b958d-2a30-4753-af75-f2a9717cd1d8",
+            "target": "4"
+        },
+        {
+            "source": "7c758345-76fb-4cde-a034-c8ab8382dde3",
+            "target": "4"
+        },
+        {
+            "source": "695823f7-721f-4670-ac1b-118b01278178",
+            "target": "4"
+        },
+        {
+            "source": "4b65e881-a73c-48a0-aeb1-c36a28e0a7e5",
+            "target": "2"
+        },
+        {
+            "source": "3bd76bca-ad1d-4a5d-bc39-e3eaee4586cc",
+            "target": "2"
+        },
+        {
+            "source": "dfa0b2fb-3017-449c-91da-c0deb04cfcdd",
+            "target": "2"
+        },
+        {
+            "source": "727d5a3b-153b-4e66-87ee-38506c3f5d27",
+            "target": "1"
+        },
+        {
+            "source": "a527ac87-d1ff-46bc-bab8-dcc51072f459",
+            "target": "1"
+        },
+        {
+            "source": "1e4a9702-4386-48ab-b86f-d355b0157ec6",
+            "target": "1"
+        },
+        {
+            "source": "04c6aa3c-6d79-41ae-9846-aedd214287ea",
+            "target": "1"
+        },
+        {
+            "source": "af76c059-b2ec-40cc-bc05-2656bd8e7fc6",
+            "target": "1"
+        },
+        {
+            "source": "06cb57f6-077b-4f1e-be5c-c801dd87269d",
+            "target": "1"
+        },
+        {
+            "source": "8e4949d9-1363-4264-8b61-f9a93cd24438",
+            "target": "1"
+        },
+        {
+            "source": "2f988220-de83-4f2c-ade7-32b2c5c4fcb6",
+            "target": "1"
+        },
+        {
+            "source": "cc4ba8fb-05e9-4c64-a606-56a4427cee0e",
+            "target": "1"
+        },
+        {
+            "source": "dab13414-df91-444d-a84a-d61130c89601",
+            "target": "1"
+        },
+        {
+            "source": "6a380717-f76a-429b-99ee-84aad73249c5",
+            "target": "1"
+        },
+        {
+            "source": "9c09028c-f986-4c93-86b7-830ddd801293",
+            "target": "1"
+        },
+        {
+            "source": "c7ba45f6-577f-4814-bb80-967ab8481289",
+            "target": "1"
+        },
+        {
+            "source": "cb53aa5a-3965-4a51-b1b0-526bf533ae39",
             "target": "3"
         },
         {
-            "source": "e2010d96-167a-4cdc-9068-dcc9b6117dcc",
+            "source": "784f29c6-36f9-497b-898a-8d7b4f1e60b9",
             "target": "3"
         },
         {
-            "source": "c3198298-4be1-42ae-a756-2377f667e603",
+            "source": "fcb958a2-6d54-4470-bad4-64bdf899b810",
             "target": "3"
         },
         {
-            "source": "6f3c71a9-e40b-40fd-a021-533511093e59",
+            "source": "6d78a7cf-57ae-4882-abb2-0617e7776037",
             "target": "3"
         },
         {
-            "source": "cc67afd7-061a-4b97-b130-d0811647ed58",
+            "source": "bf5a3da3-60d5-4712-a564-30d516e64827",
             "target": "3"
         },
         {
-            "source": "bb9a3a17-11f5-476a-9313-16531da097be",
+            "source": "8876d01e-f8dd-4187-9672-463bfb1e4dee",
             "target": "3"
         },
         {
-            "source": "a93678d1-b045-45ea-a339-310f97d3ac70",
+            "source": "434a397a-ee04-4ee8-8793-f847037dde2e",
             "target": "3"
         },
         {
-            "source": "8ffe5a72-2d73-41a8-bfb9-1c96a103ad92",
-            "target": "3"
-        },
-        {
-            "source": "0aad0422-fcfb-40ac-9ac2-b3f84497be8c",
-            "target": "5"
-        },
-        {
-            "source": "09ccb71e-f6e3-414d-9803-5da084625c88",
-            "target": "5"
-        },
-        {
-            "source": "433f64ea-4c3a-4de7-ab28-e628b2856242",
-            "target": "5"
-        },
-        {
-            "source": "e40affb0-1e54-455c-878a-8a44011f0a54",
-            "target": "5"
-        },
-        {
-            "source": "0c7242c1-0c44-45d5-a1b4-f0e9019d842a",
-            "target": "5"
-        },
-        {
-            "source": "9fced328-76dd-4cda-bca6-44908bc1027a",
-            "target": "5"
-        },
-        {
-            "source": "ac0fd78b-2e0a-4f05-a845-085a58dad321",
-            "target": "5"
-        },
-        {
-            "source": "da0e5365-14db-4178-84e1-1c38a5655b11",
+            "source": "c6ab614d-1f4e-41bd-bb5a-511f5c79d9de",
             "target": "0"
         },
         {
-            "source": "26864a48-258a-451e-80d8-592330415dd5",
+            "source": "f472cb3d-4811-4663-9f87-76227176aae2",
             "target": "0"
         },
         {
-            "source": "2d1886ff-fbbb-4d5b-bbbb-4bbf7bf71177",
+            "source": "ad7d8d3d-4888-47a4-873a-612de5521af1",
             "target": "0"
         },
         {
-            "source": "56e105b8-9a25-493c-b0c2-17159490cf9c",
+            "source": "b4626b22-63f8-44c3-bfe4-ca2f63f77b3a",
             "target": "0"
         },
         {
-            "source": "738ec426-5e3f-414c-b3ea-6059a20aa3ed",
+            "source": "3ddd2b0c-3f37-49ac-b625-64d5d83919c2",
             "target": "0"
         },
         {
-            "source": "67902986-5376-4ca3-84e5-670e7c0ab234",
+            "source": "cd2702af-92b4-4b95-ad4c-d072039e46fc",
+            "target": "0"
+        },
+        {
+            "source": "92996c5d-42b3-4c6f-9019-e4cec237c3e7",
+            "target": "0"
+        },
+        {
+            "source": "5e68b875-836a-4efc-a29b-25d15eafea62",
+            "target": "5"
+        },
+        {
+            "source": "be7f35f0-554a-451e-bc76-feb19bee0621",
+            "target": "5"
+        },
+        {
+            "source": "c037ccbd-af8c-443b-8f16-881d34428360",
+            "target": "5"
+        },
+        {
+            "source": "e45f06a5-0335-4239-93a5-e753ef932a74",
             "target": "6"
         },
         {
-            "source": "7767133f-a529-43cd-b37e-a71936a741f7",
+            "source": "b8cb2597-ec32-492f-acfe-9a45c0202129",
             "target": "6"
         },
         {
-            "source": "1c8512bd-441d-495f-bc63-83b14f5a727a",
-            "target": "7"
+            "source": "a6e4282d-58f2-40f6-b557-f76a2c5b2c45",
+            "target": "6"
         },
         {
-            "source": "a9a32baa-911d-4cdb-aa7c-b3a31f71c843",
-            "target": "7"
+            "source": "35d62ad8-66c6-4125-b775-1203448fd673",
+            "target": "6"
         },
         {
-            "source": "b25fd384-d196-481c-a7f9-adf0d33af381",
-            "target": "7"
+            "source": "826fa1a2-f8e4-4bbd-b337-3694cdf199a0",
+            "target": "6"
         },
         {
-            "source": "12d38b3f-5eef-4d10-bd10-f9d8611c1d6a",
-            "target": "7"
+            "source": "74abaa32-3e9d-4733-b2c1-3db206ded38d",
+            "target": "6"
         },
         {
-            "source": "2629949c-da8d-47f5-a5be-b8544eca48d5",
-            "target": "7"
+            "source": "ad8808ee-3aa3-435d-9966-f9c9d6401669",
+            "target": "6"
         },
         {
-            "source": "793f25c1-ea77-42c4-b2e4-27913ff3227c",
-            "target": "7"
-        },
-        {
-            "source": "2fbcfae9-34e4-4391-b041-9195ac8046eb",
-            "target": "7"
-        },
-        {
-            "source": "d26ece43-f66a-4ebb-8e19-4cdc9be220a9",
-            "target": "7"
-        },
-        {
-            "source": "4629d1f8-54f5-4838-98dc-86008c7d6f80",
-            "target": "7"
-        },
-        {
-            "source": "5e3c0e35-7da2-4eea-81dc-a67afa290e3d",
-            "target": "2"
-        },
-        {
-            "source": "db1c4f0f-3017-4568-9997-85c544c5cc6f",
-            "target": "2"
-        },
-        {
-            "source": "2170b8fb-a7b7-4e29-aa2a-149708e1874a",
-            "target": "2"
-        },
-        {
-            "source": "7fa9b563-fd7c-4f01-9f65-4490cc639ae7",
-            "target": "2"
-        },
-        {
-            "source": "39c86c6c-3c2e-4f76-ab7f-e8d0b62aaa77",
-            "target": "2"
-        },
-        {
-            "source": "982dcdc1-507f-47c2-9745-0af710da0348",
-            "target": "2"
+            "source": "087dc8c3-a5b8-42ae-89d1-9711fe5afafb",
+            "target": "6"
         }
     ]
 }
