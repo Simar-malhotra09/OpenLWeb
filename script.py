@@ -334,8 +334,8 @@ if __name__ == "__main__":
             # embds= analyzer.generate_embeddings()
             # print(embds)
 
-            cluster_heads= analyzer.run()
-            print("Final cluster headings:", cluster_heads)
+            cluster_heads_and_data= analyzer.run()
+            print("Final cluster headings:", cluster_heads_and_data)
         except ValueError as e:
             print(f"Validation error: {e}")
         except Exception as e:

@@ -6,7 +6,8 @@ const prisma = new PrismaClient();
 interface Node {
   id: string;
   user: string;
-  description: string;
+  title: string;
+  link?: string;
   sourceLinks: Link[];
   targetLinks: Link[];
 }
@@ -39,12 +40,14 @@ async function updateDatabaseFromJSON() {
           where: { id: node.id },
           update: {
             user: node.user,
-            title: node.description,
+            title: node.title,
+            link: node.link
           },
           create: {
             id: node.id,
             user: node.user,
-            title: node.description,
+            title: node.title,
+            link: node.link
           },
         })
       )

@@ -7,6 +7,7 @@ interface Node {
   id: string;
   user: string;
   title: string;
+  link?: string;
   sourceLinks: Link[];
   targetLinks: Link[];
 }

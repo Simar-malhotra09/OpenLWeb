@@ -3,13 +3,14 @@ import { prisma } from "@/app/lib/prisma";
 
 export async function POST(request: Request) {
   try {
-    const { id, user, title } = await request.json();
+    const { id, user, title,link } = await request.json();
 
     const newNode = await prisma.node.create({
       data: {
         id,
         user,
         title,
+        link,
       },
     });
 
@@ -42,6 +43,7 @@ export async function GET() {
         id: node.id,
         user: node.user || "unknown user",
         title: node.title || "No description provided",
+        link: node.link || "Link not provided"
       })),
       links: links.map((link) => ({
         source: link.sourceId,

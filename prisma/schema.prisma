@@ -4,14 +4,13 @@ generator client {
 
 datasource db {
   provider = "sqlite"
-  url      = env("DATABASE_URL")
+  url      = "file:./dev.db" // Correct connection string for SQLite
 }
 model Node {
   id          String   @id @default(uuid())
   user        String
   title       String
- 
-  
+  link        String?
   // Relations
   sourceLinks Link[]   @relation("SourceNode")
   targetLinks Link[]   @relation("TargetNode")
