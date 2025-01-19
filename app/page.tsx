@@ -52,7 +52,10 @@ export default function Page() {
           graphData={graphData}
           backgroundColor="black"
           nodeLabel={(node) => `${node.user}: ${node.title}`}
-          nodeColor={(node) => "white"}
+          nodeColor={(node) => {
+            // Check if node.id is numeric or a UID
+            return /^[0-9]+$/.test(node.id) ? "red" : "white";
+          }}
           nodeRelSize={6}
           nodeAutoColorBy="user"
           linkColor="red"
@@ -69,6 +72,11 @@ export default function Page() {
           linkDirectionalParticleColor={(link) =>
             emitParticles(link).particleColor
           } // Controls particle color
+          onNodeRightClick={(node) => {
+            if (node.link) {
+              window.open(node.link, "_blank");
+            }
+          }}
         />
       ) : (
         <div>Loading graph...</div>
