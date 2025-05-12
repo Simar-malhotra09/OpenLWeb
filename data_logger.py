@@ -3,18 +3,28 @@ import os
 import argparse
 from datetime import date
 
-def file_exists(path: str) -> bool:
-    return os.path.exists(path)
+def file_exists(csv_path: str) -> bool:
+    return os.csv_path.exists(csv_path)
 
 class Data_Logger:
-    def __init__(self, path: str):
-        self.path = path
+
+'''
+csv_path: Here we store the raw data, it can be added simply by running `python data_logger.py -add 
+    
+    [NAME] Bad Beta, Good Beta, 
+    [TAG] FINANCE/MARKET_NEUTRALITY,                                        *(can be nested)
+    [LINK] https://papers.ssrn.com/sol3/papers.cfm?abstract_id=383420,
+    [DATE] today                                                            *(this auto gets the date
+    ;`                                                                       *(can add multiple objs seperated by `;`)
+'''
+
+    def __init__(self, csv_path: str):
+        self.csv_path = csv_path
 
     def make_file(self):
-        if not file_exists(self.path):
+        if not file_exists(self.csv_path):
             df = pd.DataFrame(columns=["Name", "Tag", "Link", "Date Added"])
-            df.to_csv(self.path, index=False)
-
+            df.to_csv(self.csv_path, index=False)
     def add_entry(self, raw: str):
         entries = [e.strip() for e in raw.split(";")]
         rows = []
@@ -24,12 +34,18 @@ class Data_Logger:
                 fields = fields[:3] + [str(date.today())]
             rows.append(fields)
         df = pd.DataFrame(rows, columns=["Name", "Tag", "Link", "Date Added"])
-        df.to_csv(self.path, mode="a", index=False, header=not file_exists(self.path))
+        df.to_csv(self.csv_path, mode="a", index=False, header=not file_exists(self.csv_path))
     
-    def get_all_tags(self):
+'''
+get_all_tags: Return list of all user generated tags
 
-        if file_exists(self.path):
-            df=pd.read_csv(self.path)
+Next step: Instead of purely returing tags as list, we account for nested tags and return 
+in a tree? respecting the heirarchy.
+
+'''
+    def get_all_tags(self):
+        if file_exists(self.csv_path):
+            df=pd.read_csv(self.csv_path)
             return df["Tag"].unique()
         return[]
 
