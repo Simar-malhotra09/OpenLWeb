@@ -1,22 +1,23 @@
 "use client";
-
 import { useEffect, useState } from "react";
-import { ForceGraph3D } from "react-force-graph";
+import dynamic from "next/dynamic";
+// Dynamically import ForceGraph3D (avoids SSR issues)
+const ForceGraph3D = dynamic(() => import("react-force-graph").then(mod => mod.ForceGraph3D), {
+  ssr: false,
+});
 
 interface Node {
   id: string;
   user: string;
   title: string;
   link?: string;
-  sourceLinks: Link[];
-  targetLinks: Link[];
+  type: string;
 }
 
 interface Link {
   source: string;
   target: string;
-  sourceNode: Node;
-  targetNode: Node;
+  type: string;
 }
 
 interface GraphData {
@@ -26,53 +27,52 @@ interface GraphData {
 
 export default function Page() {
   const [graphData, setGraphData] = useState<GraphData | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchGraphData = async () => {
-      const res = await fetch("/api/data");
-      const data = await res.json();
-      setGraphData(data);
+      try {
+        const res = await fetch("/api/get_data_from_endpoint", { method: "POST" });
+        if (!res.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const data = await res.json();
+        if (!data.nodes || !data.links) {
+          throw new Error("Invalid graph data format");
+        }
+        setGraphData(data);
+      } catch (err: any) {
+        console.error("Error fetching graph data:", err);
+        setError(err.message || "Failed to load graph");
+      }
     };
-
     fetchGraphData();
   }, []);
 
-  const emitParticles = (link: Link) => {
-    return {
-      particleSpeed: 0.5,
-      particleWidth: 1,
-      particleColor: "red",
-    };
-  };
-
   return (
     <div style={{ width: "100vw", height: "100vh" }}>
+      {error && <div style={{ color: "red" }}>{error}</div>}
       {graphData ? (
         <ForceGraph3D
           graphData={graphData}
           backgroundColor="black"
-          nodeLabel={(node) => `${node.user}: ${node.title}`}
-          nodeColor={(node) => {
-            // Check if node.id is numeric or a UID
-            return /^[0-9]+$/.test(node.id) ? "red" : "white";
-          }}
+          nodeLabel={(node: any) => `${node.user}: ${node.title}`}
+          nodeColor={(node: any) =>
+            node.type === "[TAG]" ? "red" : "white"
+          }
           nodeRelSize={6}
           nodeAutoColorBy="user"
-          linkColor="red"
+          linkColor={(link: any) => 
+            link.type === "[TAG]" ? "red" : "white"
+          }
           linkOpacity={0.9}
-          linkDirectionalParticles={1} // Enables particle emission
-          linkCurvature={0}
-          // Emit particles when links are interacted with
-          linkDirectionalParticleSpeed={(link) =>
-            emitParticles(link).particleSpeed
-          } // Controls particle speed
-          linkDirectionalParticleWidth={(link) =>
-            emitParticles(link).particleWidth
-          } // Controls particle width
-          linkDirectionalParticleColor={(link) =>
-            emitParticles(link).particleColor
-          } // Controls particle color
-          onNodeRightClick={(node) => {
+          linkDirectionalParticles={1}
+          linkDirectionalParticleSpeed={() => 0.5}
+          linkDirectionalParticleWidth={() => 1}
+          linkDirectionalParticleColor={(link: any) => 
+            link.type === "[TAG]" ? "red" : "blue"
+          }
+          onNodeRightClick={(node: any) => {
             if (node.link) {
               window.open(node.link, "_blank");
             }

@@ -3,7 +3,7 @@
 
 /prisma/migrations/*
 /prisma/dev.db
-
+data.csv
 /venv
 # dependencies
 /node_modules
