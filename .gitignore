@@ -5,6 +5,7 @@
 /prisma/dev.db
 data.csv
 /venv
+/__pycache__/*
 # dependencies
 /node_modules
 /.pnp
