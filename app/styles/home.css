@@ -1,0 +1,172 @@
+:root {
+  --color-background: #0a0a0f;
+  --color-primary: #6366f1;
+  --color-secondary: #8b5cf6;
+  --color-accent: #06b6d4;
+  --color-warning: #f59e0b;
+  --color-danger: #ef4444;
+  --color-success: #10b981;
+  --color-text: #e2e8f0;
+  --color-text-muted: #64748b;
+  --color-surface: #1e293b;
+  --color-border: #334155;
+}
+
+.graph-container {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  background: linear-gradient(135deg, var(--color-background) 0%, #1a1a2e 100%);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.controls-panel {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background: rgba(15, 23, 42, 0.95);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 16px;
+  color: var(--color-text);
+  min-width: 200px;
+  transition: all 0.3s ease;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.controls-panel.hidden {
+  opacity: 0;
+  transform: translateX(-100%);
+  pointer-events: none;
+}
+
+.control-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.control-label {
+  font-weight: 600;
+}
+
+.control-desc {
+  color: var(--color-text-muted);
+}
+
+.reset-camera-btn {
+  width: 100%;
+  background: var(--color-primary);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 12px;
+  transition: all 0.2s ease;
+}
+
+.reset-camera-btn:hover {
+  background: var(--color-secondary);
+  transform: translateY(-1px);
+}
+
+.toggle-controls-btn {
+  position: absolute;
+  top: 20px;
+  left: 240px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(15, 23, 42, 0.95);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  transition: all 0.2s ease;
+}
+
+.toggle-controls-btn:hover {
+  background: var(--color-surface);
+  transform: scale(1.1);
+}
+
+.node-info-panel {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: rgba(15, 23, 42, 0.95);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 0;
+  color: var(--color-text);
+  max-width: 300px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.node-info-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.node-info-header h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.node-info-header button {
+  background: none;
+  border: none;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  font-size: 18px;
+  padding: 4px;
+  border-radius: 4px;
+}
+
+.node-info-header button:hover {
+  background: var(--color-surface);
+  color: var(--color-text);
+}
+
+.node-info-content {
+  padding: 16px;
+}
+
+.node-info-content p {
+  margin: 0 0 12px 0;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.node-link {
+  display: inline-block;
+  background: var(--color-primary);
+  color: white;
+  text-decoration: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  margin-top: 8px;
+}
+
+.node-link:hover {
+  background: var(--color-secondary);
+  transform: translateY(-1px);
+}
