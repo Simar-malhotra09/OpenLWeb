@@ -1,10 +1,17 @@
 "use client";
-import { useEffect, useState, useMemo, useCallback, useRef } from "react";
-import dynamic from "next/dynamic";
+import { useEffect, useState, useMemo, useCallback} from "react";
+// import dynamic from "next/dynamic";
 import "./styles/home.css";
-const ForceGraph3D = dynamic(() => import("react-force-graph").then(mod => mod.ForceGraph3D), {
-  ssr: false,
-});
+// const ForceGraph3D = dynamic(() => import("react-force-graph").then(mod => mod.ForceGraph3D), {
+//   ssr: false,
+// });
+
+import dynamic from 'next/dynamic';
+const ForceGraph3D = dynamic(() => import('react-force-graph-3d'), { ssr: false });
+
+// import ForceGraph3D from "react-force-graph-3d";
+import { useRef, MutableRefObject } from "react";
+
 
 interface Node {
   id: string;
@@ -12,7 +19,11 @@ interface Node {
   title: string;
   link?: string;
   type: string;
-  val?: number; // For node sizing
+  val?: number;
+  x:number;
+  y:number;
+  z:number;
+  
 }
 
 interface Link {
@@ -57,7 +68,10 @@ export default function EnhancedForceGraphPage() {
   const [loading, setLoading] = useState(true);
   const [selectedNode, setSelectedNode] = useState<Node | null>(null);
   const [showControls, setShowControls] = useState(true);
-  const graphRef = useRef<any>(null);
+  
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+ const graphRef: MutableRefObject<any> = useRef(null);
+
 
   // Memoized color functions
   const getNodeColor = useMemo(() => {
@@ -72,11 +86,11 @@ export default function EnhancedForceGraphPage() {
   }, []);
 
   const getLinkColor = useMemo(() => {
-    return (link: any) => link.type === "[TAG]" ? COLORS.danger : COLORS.accent;
+    return (link:Link) => link.type === "[TAG]" ? COLORS.danger : COLORS.accent;
   }, []);
 
   const getParticleColor = useMemo(() => {
-    return (link: any) => link.type === "[TAG]" ? COLORS.danger : COLORS.primary;
+    return (link: Link) => link.type === "[TAG]" ? COLORS.danger : COLORS.primary;
   }, []);
 
   // Enhanced data processing
@@ -127,21 +141,33 @@ export default function EnhancedForceGraphPage() {
         
         setGraphData(data);
         setError(null);
-      } catch (err: any) {
+
+      } catch (err: unknown) {
         console.error("Error fetching graph data:", err);
-        setError(err.message || "Failed to load graph data");
-      } finally {
-        setLoading(false);
+        if (err instanceof Error) {
+          setError(err.message);
+        } else {
+          setError("Failed to load graph data");
+        }
       }
+      finally{
+          setLoading(false);
+      };
     };
 
     fetchGraphData();
   }, []);
 
   // Event handlers
+  //
   const handleNodeClick = useCallback((node: Node) => {
     setSelectedNode(node);
-    if (graphRef.current) {
+    if (
+      graphRef.current &&
+      typeof node.x === "number" &&
+      typeof node.y === "number" &&
+      typeof node.z === "number"
+    ) {
       graphRef.current.cameraPosition(
         { x: node.x * 1.5, y: node.y * 1.5, z: node.z * 1.5 },
         node,
