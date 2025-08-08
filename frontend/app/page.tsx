@@ -379,7 +379,7 @@ export default function EnhancedForceGraphPage() {
         </div>
       )};
 
-    <div className="fixed top-1/2 right-2 -translate-y-1/2 w-64">
+    <div className="fixed bottom-1 right-2 -translate-y-1/2 w-64">
       <TagTreeSitter />
     </div>     
 
