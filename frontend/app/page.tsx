@@ -262,6 +262,25 @@ export default function EnhancedForceGraphPage() {
 
   return (
     <div className="graph-container">
+      <div className="app-header">
+        <div className="app-logo">
+          OpenLWeb
+        </div>
+        <div className="header-actions">
+          <a 
+            href="https://github.com/Simar-malhotra09/OpenLWeb" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="github-link"
+            title="View on GitHub"
+          >
+            <img 
+              src="/github-mark/github-mark-white.svg" 
+              alt="GitHub Repository" 
+            />
+          </a>
+        </div>
+      </div>
       {processedGraphData && (
         <ForceGraph3D
           ref={graphRef}
@@ -303,29 +322,6 @@ export default function EnhancedForceGraphPage() {
         />
       )}
       <div>
-        <a 
-          href="https://github.com/Simar-malhotra09/OpenLWeb" 
-          target="_blank" 
-          rel="noopener noreferrer"
-          style={{
-            position: "absolute",
-            top: "20px",
-            left: "300px",
-            // background: "rgba(15, 23, 42, 0.95)",
-            color: "var(--color-text)",
-            maxWidth: "40px",
-            transition: "all 0.3s ease",
-            boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1)"
-          }}
-          onMouseEnter={(e) => e.currentTarget.style.opacity = '5'}
-          onMouseLeave={(e) => e.currentTarget.style.opacity = '0.85'}
-        >
-          <img 
-            src="/github-mark/github-mark-white.svg" 
-            alt="GitHub Repository" 
-            style={{ width: '100%', height: '100%' }} 
-          />
-        </a>
       </div>
       {/* Control Panel */}
       <div className={`controls-panel ${!showControls ? 'hidden' : ''}`}>

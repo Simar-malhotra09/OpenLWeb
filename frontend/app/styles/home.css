@@ -11,6 +11,31 @@
   --color-surface: #1e293b;
   --color-border: #334155;
 }
+.app-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  background: rgba(15, 23, 42, 0.8);
+  z-index: 10; /* header is below controls panel */
+}
+
+
+.app-logo {
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+}
+
+.header-actions img {
+  height: 28px;
+  width: 28px;
+}
 
 .graph-container {
   width: 100vw;
@@ -22,10 +47,9 @@
   align-items: center;
   justify-content: center;
 }
-
 .controls-panel {
   position: absolute;
-  top: 20px;
+  top: 150px; /* move it below the header visually */
   left: 20px;
   background: rgba(15, 23, 42, 0.95);
   backdrop-filter: blur(10px);
@@ -36,6 +60,7 @@
   min-width: 200px;
   transition: all 0.3s ease;
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  z-index: 20; /* make sure it's above the header */
 }
 
 .controls-panel.hidden {
@@ -81,8 +106,8 @@
 
 .toggle-controls-btn {
   position: absolute;
-  top: 20px;
-  left: 240px;
+  top: 80px;
+  left: 20px;
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -105,7 +130,7 @@
 
 .node-info-panel {
   position: absolute;
-  top: 20px;
+  top: 80px;
   right: 20px;
   background: rgba(15, 23, 42, 0.95);
   backdrop-filter: blur(10px);
