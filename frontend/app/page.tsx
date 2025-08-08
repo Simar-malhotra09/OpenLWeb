@@ -114,31 +114,27 @@ export default function EnhancedForceGraphPage() {
   }, [graphData]);
 
   // Fetch data with better error handling
+  //
   useEffect(() => {
     const fetchGraphData = async () => {
       try {
         setLoading(true);
-        const res = await fetch("/api/get_data_from_endpoint", { 
-          method: "POST",
-          headers: {
-            'Content-Type': 'application/json',
-          }
-        });
-        
+        const res = await fetch("/output_graph.json");
+
         if (!res.ok) {
           throw new Error(`HTTP ${res.status}: ${res.statusText}`);
         }
-        
+
         const data = await res.json();
-        
+
         if (!data.nodes || !data.links || !Array.isArray(data.nodes) || !Array.isArray(data.links)) {
           throw new Error("Invalid graph data format: missing or invalid nodes/links arrays");
         }
-        
+
         if (data.nodes.length === 0) {
           throw new Error("No nodes found in the dataset");
         }
-        
+
         setGraphData(data);
         setError(null);
 
@@ -149,10 +145,9 @@ export default function EnhancedForceGraphPage() {
         } else {
           setError("Failed to load graph data");
         }
+      } finally {
+        setLoading(false);
       }
-      finally{
-          setLoading(false);
-      };
     };
 
     fetchGraphData();
