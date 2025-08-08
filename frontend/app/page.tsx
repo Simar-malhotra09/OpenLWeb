@@ -5,7 +5,7 @@ import "./styles/home.css";
 // const ForceGraph3D = dynamic(() => import("react-force-graph").then(mod => mod.ForceGraph3D), {
 //   ssr: false,
 // });
-
+import { inferDocType } from "./lib/utils/infer_node_type";
 import dynamic from 'next/dynamic';
 const ForceGraph3D = dynamic(() => import('react-force-graph-3d'), { ssr: false });
 
@@ -183,7 +183,7 @@ export default function EnhancedForceGraphPage() {
 
   const resetCamera = useCallback(() => {
     if (graphRef.current) {
-      graphRef.current.cameraPosition({ x: 0, y: 0, z: 300 }, { x: 0, y: 0, z: 0 }, 2000);
+      graphRef.current.cameraPosition({ x:50, y: 0, z: 300 }, { x: 0, y: 0, z: 0 }, 2000);
     }
   }, []);
 
@@ -358,7 +358,13 @@ export default function EnhancedForceGraphPage() {
           </div>
           <div className="node-info-content">
             <p><strong>Title:</strong> {selectedNode.title}</p>
-            <p><strong>Type:</strong> {selectedNode.type}</p>
+            <p><strong>Type:</strong> 
+                <span style={{ 
+                  color: selectedNode.type === "[TAG]" ? "#ef4444" : "#10b981" 
+                }}>
+                  {selectedNode.type === "[TAG]" ? "🏷️ Tag" : `${inferDocType(selectedNode.link).icon} ${inferDocType(selectedNode.link).label}`}
+                </span>
+            </p>
             {selectedNode.link && (
               <a 
                 href={selectedNode.link} 
