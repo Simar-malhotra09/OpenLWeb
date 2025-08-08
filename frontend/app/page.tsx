@@ -11,6 +11,7 @@ const ForceGraph3D = dynamic(() => import('react-force-graph-3d'), { ssr: false 
 
 // import ForceGraph3D from "react-force-graph-3d";
 import { useRef, MutableRefObject } from "react";
+import TagTreeSitter from "../components/tag-treesitter.tsx";
 
 
 interface Node {
@@ -170,16 +171,15 @@ export default function EnhancedForceGraphPage() {
       );
     }
   }, []);
-
   const handleNodeRightClick = useCallback((node: Node) => {
     if (node.link) {
       window.open(node.link, "_blank", "noopener,noreferrer");
     }
   }, []);
 
-  const handleBackgroundClick = useCallback(() => {
-    setSelectedNode(null);
-  }, []);
+  // const handleBackgroundClick = useCallback(() => {
+  //   setSelectedNode(null);
+  // }, []);
 
   const resetCamera = useCallback(() => {
     if (graphRef.current) {
@@ -315,7 +315,7 @@ export default function EnhancedForceGraphPage() {
           linkDirectionalParticleColor={getParticleColor}
           onNodeClick={handleNodeClick}
           onNodeRightClick={handleNodeRightClick}
-          onBackgroundClick={handleBackgroundClick}
+          // onBackgroundClick={handleBackgroundClick}
           enableNodeDrag={true}
           enableNavigationControls={true}
           showNavInfo={false}
@@ -377,7 +377,11 @@ export default function EnhancedForceGraphPage() {
             )}
           </div>
         </div>
-      )}
+      )};
+
+    <div className="fixed top-1/2 right-2 -translate-y-1/2 w-64">
+      <TagTreeSitter />
+    </div>     
 
     </div>
   );
