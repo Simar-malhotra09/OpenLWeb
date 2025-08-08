@@ -32,7 +32,8 @@ class Data_Logger:
 
     def _load_tags(self):
         """Load the tags from the CSV file and build the tag count."""
-        df = pd.read_csv(self.csv_path)
+        print("loading tags! ")
+        df = pd.read_csv(self.csv_path, delimiter=',')
         for tag_path in df["Tag"]:
             tags_list= self.make_tags(tag_path)
             for tag in tags_list:
