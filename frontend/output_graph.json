@@ -1,0 +1,308 @@
+{
+  "nodes": [
+    {
+      "id": "65fe55e3801a7036f00d6e15acc72475",
+      "user": "admin",
+      "title": "FINANCE",
+      "link": null,
+      "type": "[TAG]"
+    },
+    {
+      "id": "d40126237287ba06897bf20054d876bb",
+      "user": "admin",
+      "title": "FINANCE/MARKETS",
+      "link": null,
+      "type": "[TAG]"
+    },
+    {
+      "id": "53dc04ef6345cdb1894262ecb3a529cd",
+      "user": "admin",
+      "title": "FINANCE/MARKETS/BETA",
+      "link": null,
+      "type": "[TAG]"
+    },
+    {
+      "id": "0e7b14fbb832b8720cf034e1437c0623",
+      "user": "admin",
+      "title": "FINANCE/TRADING",
+      "link": null,
+      "type": "[TAG]"
+    },
+    {
+      "id": "546e5c489e0c7a863ecd5dd2c03a2c47",
+      "user": "admin",
+      "title": "FINANCE/TRADING/SIGNALS AND THEIR PROCESSING",
+      "link": null,
+      "type": "[TAG]"
+    },
+    {
+      "id": "3e609e67e20dcb4eb5008313cfc8e1ec",
+      "user": "admin",
+      "title": "COMPUTER SCIENCE",
+      "link": null,
+      "type": "[TAG]"
+    },
+    {
+      "id": "8d12293216534caa4f102788cf1f011b",
+      "user": "admin",
+      "title": "COMPUTER SCIENCE/ML",
+      "link": null,
+      "type": "[TAG]"
+    },
+    {
+      "id": "8b23a14908c0c502574b4c06aca935d3",
+      "user": "admin",
+      "title": "FINANCE/HARDWARE",
+      "link": null,
+      "type": "[TAG]"
+    },
+    {
+      "id": "d488da6595fa54f82f816e2e9359126f",
+      "user": "admin",
+      "title": "FINANCE/HARDWARE/FGPAS",
+      "link": null,
+      "type": "[TAG]"
+    },
+    {
+      "id": "5fe160f61846b152e5dc5f163223ed3b",
+      "user": "admin",
+      "title": "FINANCE/TRADING/ORDERBOOKS",
+      "link": null,
+      "type": "[TAG]"
+    },
+    {
+      "id": "0f0b61888d635ec9162001784bdb96c2",
+      "user": "admin",
+      "title": "FINANCE/TRADING/HFTS",
+      "link": null,
+      "type": "[TAG]"
+    },
+    {
+      "id": "c4289b60a63dd1ab49910f351c1cf69a",
+      "user": "admin",
+      "title": "FINANCE/PORTFOLIO ALLOCATION & OPTIMIZATION",
+      "link": null,
+      "type": "[TAG]"
+    },
+    {
+      "id": "e41a161b2c30cb93f925ac48f6b0a2da",
+      "user": "admin",
+      "title": "Bad Beta",
+      "link": "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=383420",
+      "type": "[ENTRY]"
+    },
+    {
+      "id": "332d3d275843aa5e359a38cc77446680",
+      "user": "admin",
+      "title": "Claude Shannon: Biologist",
+      "link": "https://pmc.ncbi.nlm.nih.gov/articles/PMC1538977/",
+      "type": "[ENTRY]"
+    },
+    {
+      "id": "8520e14ee79d751b57dfceb9e79d1901",
+      "user": "admin",
+      "title": "Bitnet.cpp: Efficient Edge Inference for Ternary LLMs",
+      "link": "https://arxiv.org/pdf/2502.11880v1",
+      "type": "[ENTRY]"
+    },
+    {
+      "id": "bad5fced3fde878a3e133f0900d6b943",
+      "user": "admin",
+      "title": "Acceleration of Trading System Back End with FPGAs Using High-Level Synthesis Flow",
+      "link": "https://www.mdpi.com/2079-9292/12/3/520",
+      "type": "[ENTRY]"
+    },
+    {
+      "id": "a76b98fc04beb32ee7ac476e61692855",
+      "user": "admin",
+      "title": "FPGA-Based Near-Memory Acceleration of Modern Data-Intensive Applications",
+      "link": "https://ieeexplore.ieee.org/document/9451578",
+      "type": "[ENTRY]"
+    },
+    {
+      "id": "e5bc3abecbbc32e53e1277d4b9b80ea4",
+      "user": "admin",
+      "title": "Exploring the Potential of Reconfigurable Platforms for Order Book Update",
+      "link": "https://www.doc.ic.ac.uk/~wl/papers/17/fpl17ch.pdf",
+      "type": "[ENTRY]"
+    },
+    {
+      "id": "ea431448809ebf9e0bf9a323c7b052cd",
+      "user": "admin",
+      "title": "Low-latency FPGA Based Financial Data Feed Handler",
+      "link": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=5771256",
+      "type": "[ENTRY]"
+    },
+    {
+      "id": "18ff58583235d3bb868d2c30d382042c",
+      "user": "admin",
+      "title": "Exploratory Trading",
+      "link": "https://www.semanticscholar.org/paper/Exploratory-Trading-Clark-Joseph/668190df945037f0649c2e4cc71ea5c3128ab1a5",
+      "type": "[ENTRY]"
+    },
+    {
+      "id": "a5cccc23bda7e85ce378ee0b7649999e",
+      "user": "admin",
+      "title": "Effects of Limit Order Book Information Level on Market Stability Metrics",
+      "link": "https://www.financialresearch.gov/working-papers/files/OFRwp2014-09_PaddrikHayesSchererBeling_EffectsLimitOrderBookInformationLevelMarketStabilityMetrics.pdf",
+      "type": "[ENTRY]"
+    },
+    {
+      "id": "8754216abea7debbe70d0fd9aa8dc02c",
+      "user": "admin",
+      "title": "Multi-Period Trading via Convex Optimization",
+      "link": "https://web.stanford.edu/~boyd/papers/pdf/cvx_portfolio.pdf",
+      "type": "[ENTRY]"
+    },
+    {
+      "id": "17f7de785d6bf0dde8527edb600e1b6e",
+      "user": "admin",
+      "title": "Convex Optimization (Stat CMU)",
+      "link": "https://www.stat.cmu.edu/~ryantibs/convexopt/",
+      "type": "[ENTRY]"
+    },
+    {
+      "id": "252fe7fb79b45dd3efbd0e0c6c37e9d2",
+      "user": "admin",
+      "title": "Label Unbalance in High-frequency Trading",
+      "link": "https://arxiv.org/pdf/2503.09988",
+      "type": "[ENTRY]"
+    },
+    {
+      "id": "6ad50442899582fe4f501a908013470e",
+      "user": "admin",
+      "title": "Eye in outer space: satellite imageries of container ports can predict world stock returns",
+      "link": "https://www.nature.com/articles/s41599-023-01891-9",
+      "type": "[ENTRY]"
+    },
+    {
+      "id": "d6b62d5534056921fa218167d670346c",
+      "user": "admin",
+      "title": "Robust Allocation",
+      "link": "https://link.springer.com/article/10.1023/B:ANOR.0000045281.41041.ed",
+      "type": "[ENTRY]"
+    }
+  ],
+  "links": [
+    {
+      "source": "d40126237287ba06897bf20054d876bb",
+      "target": "65fe55e3801a7036f00d6e15acc72475",
+      "type": "[TAG]"
+    },
+    {
+      "source": "53dc04ef6345cdb1894262ecb3a529cd",
+      "target": "d40126237287ba06897bf20054d876bb",
+      "type": "[TAG]"
+    },
+    {
+      "source": "0e7b14fbb832b8720cf034e1437c0623",
+      "target": "65fe55e3801a7036f00d6e15acc72475",
+      "type": "[TAG]"
+    },
+    {
+      "source": "546e5c489e0c7a863ecd5dd2c03a2c47",
+      "target": "0e7b14fbb832b8720cf034e1437c0623",
+      "type": "[TAG]"
+    },
+    {
+      "source": "8d12293216534caa4f102788cf1f011b",
+      "target": "3e609e67e20dcb4eb5008313cfc8e1ec",
+      "type": "[TAG]"
+    },
+    {
+      "source": "8b23a14908c0c502574b4c06aca935d3",
+      "target": "65fe55e3801a7036f00d6e15acc72475",
+      "type": "[TAG]"
+    },
+    {
+      "source": "d488da6595fa54f82f816e2e9359126f",
+      "target": "8b23a14908c0c502574b4c06aca935d3",
+      "type": "[TAG]"
+    },
+    {
+      "source": "5fe160f61846b152e5dc5f163223ed3b",
+      "target": "0e7b14fbb832b8720cf034e1437c0623",
+      "type": "[TAG]"
+    },
+    {
+      "source": "0f0b61888d635ec9162001784bdb96c2",
+      "target": "0e7b14fbb832b8720cf034e1437c0623",
+      "type": "[TAG]"
+    },
+    {
+      "source": "c4289b60a63dd1ab49910f351c1cf69a",
+      "target": "65fe55e3801a7036f00d6e15acc72475",
+      "type": "[TAG]"
+    },
+    {
+      "source": "e41a161b2c30cb93f925ac48f6b0a2da",
+      "target": "53dc04ef6345cdb1894262ecb3a529cd",
+      "type": "[ENTRY]"
+    },
+    {
+      "source": "332d3d275843aa5e359a38cc77446680",
+      "target": "546e5c489e0c7a863ecd5dd2c03a2c47",
+      "type": "[ENTRY]"
+    },
+    {
+      "source": "8520e14ee79d751b57dfceb9e79d1901",
+      "target": "8d12293216534caa4f102788cf1f011b",
+      "type": "[ENTRY]"
+    },
+    {
+      "source": "bad5fced3fde878a3e133f0900d6b943",
+      "target": "d488da6595fa54f82f816e2e9359126f",
+      "type": "[ENTRY]"
+    },
+    {
+      "source": "a76b98fc04beb32ee7ac476e61692855",
+      "target": "d488da6595fa54f82f816e2e9359126f",
+      "type": "[ENTRY]"
+    },
+    {
+      "source": "e5bc3abecbbc32e53e1277d4b9b80ea4",
+      "target": "5fe160f61846b152e5dc5f163223ed3b",
+      "type": "[ENTRY]"
+    },
+    {
+      "source": "ea431448809ebf9e0bf9a323c7b052cd",
+      "target": "d488da6595fa54f82f816e2e9359126f",
+      "type": "[ENTRY]"
+    },
+    {
+      "source": "18ff58583235d3bb868d2c30d382042c",
+      "target": "0f0b61888d635ec9162001784bdb96c2",
+      "type": "[ENTRY]"
+    },
+    {
+      "source": "a5cccc23bda7e85ce378ee0b7649999e",
+      "target": "5fe160f61846b152e5dc5f163223ed3b",
+      "type": "[ENTRY]"
+    },
+    {
+      "source": "8754216abea7debbe70d0fd9aa8dc02c",
+      "target": "c4289b60a63dd1ab49910f351c1cf69a",
+      "type": "[ENTRY]"
+    },
+    {
+      "source": "17f7de785d6bf0dde8527edb600e1b6e",
+      "target": "c4289b60a63dd1ab49910f351c1cf69a",
+      "type": "[ENTRY]"
+    },
+    {
+      "source": "252fe7fb79b45dd3efbd0e0c6c37e9d2",
+      "target": "0f0b61888d635ec9162001784bdb96c2",
+      "type": "[ENTRY]"
+    },
+    {
+      "source": "6ad50442899582fe4f501a908013470e",
+      "target": "8d12293216534caa4f102788cf1f011b",
+      "type": "[ENTRY]"
+    },
+    {
+      "source": "d6b62d5534056921fa218167d670346c",
+      "target": "c4289b60a63dd1ab49910f351c1cf69a",
+      "type": "[ENTRY]"
+    }
+  ]
+}

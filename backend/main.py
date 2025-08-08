@@ -16,7 +16,7 @@ async def expose_json_data():
         # Resolve paths relative to this file's location
         base_dir = os.path.dirname(os.path.abspath(__file__))
         csv_path = os.path.join(base_dir, "data.csv")
-        json_path = os.path.join(base_dir, "output_graph.json")
+        json_path = os.path.join(base_dir, "frontend/output_graph.json")
 
         # Check if CSV file exists
         if not file_exists(csv_path):
