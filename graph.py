@@ -62,7 +62,6 @@ class Graph:
                         "target": tag_ids[parent],
                         "type": "[TAG]"
                     })
-
         # 2. Create nodes for entries and links from entries to tags
         for _, row in df.iterrows():
             title = row["Name"]
@@ -82,11 +81,14 @@ class Graph:
                 entry_ids.add(entry_id)
 
             # Add links to all levels of the tag hierarchy
-            for hierarchical_tag in self.logger.make_tags(tag):
-                if hierarchical_tag in tag_ids:
+            tag_chain = self.logger.make_tags(tag)
+            if tag_chain:
+                # Only link to the last tag in the hierarchy (immediate parent)
+                last_tag = tag_chain[-1]
+                if last_tag in tag_ids:
                     struct["links"].append({
                         "source": entry_id,
-                        "target": tag_ids[hierarchical_tag],
+                        "target": tag_ids[last_tag],
                         "type": "[ENTRY]"
                     })
 

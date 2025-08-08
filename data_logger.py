@@ -4,64 +4,6 @@ import argparse
 from datetime import date
 import logging 
 
-"""
-Module: data_logger.py
-
-Class: Data_Logger
-    __init__(csv_path: str)
-        - Input: 
-            csv_path: Path to the CSV file used to store metadata
-        - Output: None
-        - Action: Initializes the logger, loads tag counts from CSV if file exists
-
-    _load_tags()
-        - Input: None (uses self.csv_path)
-        - Output: None
-        - Action: Parses CSV and builds `self.tags` as a flat dictionary of tag -> count
-
-    make_file()
-        - Input: None
-        - Output: None
-        - Action: Creates an empty CSV file with the appropriate headers if it doesn't exist
-
-    make_tags(parent_tag: str) -> list[str]
-        - Input: 
-            parent_tag: A nested tag string like "A/B/C"
-        - Output: 
-            List of all hierarchical sub-tags: ["A", "A/B", "A/B/C"]
-        - Action: Used to generate hierarchical tag structures
-
-    add_entry(raw: str)
-        - Input: 
-            raw: A semicolon-separated string of entries, 
-                 each entry is a comma-separated string of fields: Name, Tag, Link, Date (or "today")
-        - Output: None
-        - Action:
-            - Parses raw input into rows
-            - Expands tags using make_tags()
-            - Updates self.tags
-            - Appends new rows to the CSV
-
-    get_all_tags_used() -> list[str]
-        - Input: None
-        - Output: List of unique tags (as-is from CSV)
-        - Note: Only the full "Tag" field is used; nested breakdown not guaranteed
-
-    get_all_tags_and_count() -> dict
-        - Input: None
-        - Output: Dictionary of all known tags and their usage counts (from self.tags)
-
-Function: file_exists(csv_path: str) -> bool
-    - Input: 
-        csv_path: Path to file
-    - Output: Boolean indicating whether the file exists
-
-Command Line Interface:
-    - `-add`: Add new entry/entries (comma-delimited fields, semicolon-delimited entries)
-    - `-tags_used`: Print list of all tags used in the CSV
-    - `-tags`: Print dictionary of all known tags and their counts
-"""
-
 
 def file_exists(csv_path: str) -> bool:
     return os.path.exists(csv_path)
@@ -84,6 +26,7 @@ class Data_Logger:
     def __init__(self, csv_path: str):
         self.csv_path = csv_path
         self.tags = {}
+        print(self.csv_path)
         if file_exists(self.csv_path):
             self._load_tags()
 
@@ -91,7 +34,8 @@ class Data_Logger:
         """Load the tags from the CSV file and build the tag count."""
         df = pd.read_csv(self.csv_path)
         for tag_path in df["Tag"]:
-            for tag in self.make_tags(tag_path):
+            tags_list= self.make_tags(tag_path)
+            for tag in tags_list:
                 if tag not in self.tags:
                     self.tags[tag] = 0
                 self.tags[tag] += 1
@@ -112,14 +56,19 @@ class Data_Logger:
     FINANCE/MARKETS/BETA
     '''
     def make_tags(self, parent_tag: str) -> list[str]:
+        if not isinstance(parent_tag, str):
+            return []
+
         child_tags = parent_tag.split('/')
         tag_list = []
         current = ''
         for tag in child_tags:
             current = f"{current}/{tag}" if current else tag
             tag_list.append(current)
+        print(tag_list)
         return tag_list
-
+        # return [parent_tag]
+ 
     def add_entry(self, raw: str):
         entries = [e.strip() for e in raw.split(";")]
         rows = []

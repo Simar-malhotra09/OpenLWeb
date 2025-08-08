@@ -8,15 +8,13 @@ interface Node {
   user: string;
   title: string;
   link?: string;
-  sourceLinks: Link[];
-  targetLinks: Link[];
+  type: string;
 }
 
 interface Link {
   source: string;
   target: string;
-  sourceNode: Node;
-  targetNode: Node;
+  type: string;
 }
 
 interface GraphData {
@@ -32,7 +30,7 @@ async function updateDatabaseFromJSON() {
     );
     const jsonData: GraphData = JSON.parse(data);
 
-    // First, create or update all nodes
+    // Step 1: Create or update all nodes
     console.log("Updating nodes...");
     await Promise.all(
       jsonData.nodes.map((node) =>
@@ -41,42 +39,51 @@ async function updateDatabaseFromJSON() {
           update: {
             user: node.user,
             title: node.title,
-            link: node.link
+            link: node.link,
           },
           create: {
             id: node.id,
             user: node.user,
             title: node.title,
-            link: node.link
+            link: node.link,
           },
         })
       )
     );
 
-    // Then create or update all links
-    console.log("Updating links...");
-    await Promise.all(
-      jsonData.links.map((link) =>
-        prisma.link
-          .create({
+    // Step 2: Create links, but prevent duplicates
+    console.log("Creating links...");
+    const linkResults = await Promise.allSettled(
+      jsonData.links.map(async (link) => {
+        // Check if link already exists
+        const exists = await prisma.link.findFirst({
+          where: {
+            sourceId: link.source,
+            targetId: link.target,
+          },
+        });
+
+        if (!exists) {
+          await prisma.link.create({
             data: {
-              source: {
-                connect: { id: link.source },
-              },
-              target: {
-                connect: { id: link.target },
-              },
+              source: { connect: { id: link.source } },
+              target: { connect: { id: link.target } },
+              // type: link.type, // Uncomment if you add a 'type' field in schema
             },
-          })
-          .catch((error: unknown) => {
-            if (error instanceof Error) {
-              console.error("Error:", error.message);
-            } else {
-              console.error("Unknown error:", error);
-            }
-          })
-      )
+          });
+        } else {
+          console.log(`Link from ${link.source} → ${link.target} already exists. Skipping.`);
+        }
+      })
     );
+
+    // Log failures if any
+    linkResults.forEach((result, index) => {
+      if (result.status === "rejected") {
+        const link = jsonData.links[index];
+        console.error(`Failed to create link ${link.source} → ${link.target}:`, result.reason);
+      }
+    });
 
     console.log("Database updated successfully!");
   } catch (error) {
