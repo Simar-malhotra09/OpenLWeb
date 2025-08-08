@@ -256,55 +256,6 @@ export default function EnhancedForceGraphPage() {
             Retry
           </button>
         </div>
-        <style jsx>{`
-          .graph-container {
-            width: 100vw;
-            height: 100vh;
-            background: linear-gradient(135deg, ${COLORS.background} 0%, #1a1a2e 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-          }
-          .error-container {
-            text-align: center;
-            color: ${COLORS.text};
-            max-width: 400px;
-            padding: 32px;
-            background: ${COLORS.surface};
-            border-radius: 16px;
-            border: 1px solid ${COLORS.border};
-          }
-          .error-icon {
-            font-size: 48px;
-            margin-bottom: 16px;
-          }
-          .error-title {
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 12px;
-            color: ${COLORS.danger};
-          }
-          .error-message {
-            color: ${COLORS.textMuted};
-            margin-bottom: 24px;
-            line-height: 1.5;
-          }
-          .retry-button {
-            background: ${COLORS.primary};
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s ease;
-          }
-          .retry-button:hover {
-            background: ${COLORS.secondary};
-            transform: translateY(-1px);
-          }
-        `}</style>
       </div>
     );
   }
@@ -351,7 +302,31 @@ export default function EnhancedForceGraphPage() {
           showNavInfo={false}
         />
       )}
-
+      <div>
+        <a 
+          href="https://github.com/Simar-malhotra09/OpenLWeb" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          style={{
+            position: "absolute",
+            top: "20px",
+            left: "300px",
+            // background: "rgba(15, 23, 42, 0.95)",
+            color: "var(--color-text)",
+            maxWidth: "40px",
+            transition: "all 0.3s ease",
+            boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1)"
+          }}
+          onMouseEnter={(e) => e.currentTarget.style.opacity = '5'}
+          onMouseLeave={(e) => e.currentTarget.style.opacity = '0.85'}
+        >
+          <img 
+            src="/github-mark/github-mark-white.svg" 
+            alt="GitHub Repository" 
+            style={{ width: '100%', height: '100%' }} 
+          />
+        </a>
+      </div>
       {/* Control Panel */}
       <div className={`controls-panel ${!showControls ? 'hidden' : ''}`}>
         <div className="control-item">
@@ -383,7 +358,6 @@ export default function EnhancedForceGraphPage() {
       {selectedNode && (
         <div className="node-info-panel">
           <div className="node-info-header">
-            <h3>{selectedNode.user}</h3>
             <button onClick={() => setSelectedNode(null)}>✕</button>
           </div>
           <div className="node-info-content">
