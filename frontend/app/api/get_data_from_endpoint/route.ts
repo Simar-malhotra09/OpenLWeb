@@ -27,8 +27,13 @@ export async function POST() {
     }
 
     return NextResponse.json(data);
-  } catch (error: any) {
-    console.error("API route error:", error);
-    return NextResponse.json({ error: error.message }, { status: 500 });
+  }
+  catch (error: unknown) {
+  if (error instanceof Error) {
+    console.error("API route error:", error.message);
+    console.error(error.stack);
+  } else {
+    console.error("Unknown error:", error);
+  }
   }
 }
