@@ -1,17 +1,15 @@
 "use client";
 import { useEffect, useState, useMemo, useCallback} from "react";
-// import dynamic from "next/dynamic";
 import "./styles/home.css";
-// const ForceGraph3D = dynamic(() => import("react-force-graph").then(mod => mod.ForceGraph3D), {
-//   ssr: false,
-// });
-import { inferDocType } from "./lib/utils/infer_node_type";
 import dynamic from 'next/dynamic';
 const ForceGraph3D = dynamic(() => import('react-force-graph-3d'), { ssr: false });
 
-// import ForceGraph3D from "react-force-graph-3d";
 import { useRef, MutableRefObject } from "react";
+
 import TagTreeSitter from "../components/tag-treesitter.tsx";
+import {getPaperData}from "./lib/utils/get_node_data.ts"
+import { inferDocType ,DocTypeInfo } from "./lib/utils/infer_node_type.tsx";
+
 
 
 interface Node {
@@ -69,6 +67,9 @@ export default function EnhancedForceGraphPage() {
   const [loading, setLoading] = useState(true);
   const [selectedNode, setSelectedNode] = useState<Node | null>(null);
   const [showControls, setShowControls] = useState(true);
+  const [paperInfo, setPaperInfo] = useState<WhitePaper | null>(null);
+  const [loadingPaperInfo, setLoadingPaperInfo] = useState(false);
+  const [paperError, setPaperError] = useState<string | null>(null);
   
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
  const graphRef: MutableRefObject<any> = useRef(null);
@@ -161,6 +162,40 @@ export default function EnhancedForceGraphPage() {
     fetchGraphData();
   }, []);
 
+    // get paper info
+  const docType = useMemo(() => {
+    if (!selectedNode?.link) return null;
+    return inferDocType(selectedNode.link);
+  }, [selectedNode?.link]);
+
+  useEffect(() => {
+    if (!selectedNode || !docType) { setPaperInfo(null);
+      setPaperError(null);
+      setLoadingPaperInfo(false);
+      return;
+    }
+
+    // Only fetch paper info for Whitepaper types
+    if (docType.type === "whitepaper") {
+      setLoadingPaperInfo(true);
+      setPaperError(null);
+      getPaperData(selectedNode.link)
+        .then(info => {
+          setPaperInfo(info);
+          setLoadingPaperInfo(false);
+        })
+        .catch(err => {
+          setPaperError(err.message || "Failed to load paper info");
+          setLoadingPaperInfo(false);
+        });
+    } else {
+      // Clear paper info if not pdf or whitepaper
+      setPaperInfo(null);
+      setLoadingPaperInfo(false);
+      setPaperError(null);
+    }
+  }, [selectedNode, docType]);
+  
   // Event handlers
   //
   const handleNodeClick = useCallback((node: Node) => {
@@ -184,9 +219,19 @@ export default function EnhancedForceGraphPage() {
     }
   }, []);
 
-  // const handleBackgroundClick = useCallback(() => {
-  //   setSelectedNode(null);
-  // }, []);
+  async function showPaperInfo(title: string) {
+    const data = await getPaperData(title);
+    if (data) {
+      console.log("Title:", data.title);
+      console.log("Authors:", data.author);
+      console.log("Abstract:", data.abstract);
+      console.log("Publisher:", data.publisher);
+      console.log("Date:", data.date);
+    } else {
+      console.log("No data found for title:", title);
+    }
+  }
+
 
   const resetCamera = useCallback(() => {
     if (graphRef.current) {
@@ -357,6 +402,8 @@ export default function EnhancedForceGraphPage() {
       >
         {showControls ? '✕' : 'ℹ️'}
       </button>
+
+
       {/* Selected Node Info - add the conditional class */}
       {selectedNode && (
         <div className={`node-info-panel ${showTagTree ? 'avoid-overlap' : ''}`}>
@@ -365,13 +412,35 @@ export default function EnhancedForceGraphPage() {
           </div>
           <div className="node-info-content">
             <p><strong>Title:</strong> {selectedNode.title}</p>
-            <p><strong>Type:</strong> 
-                <span style={{ 
-                  color: selectedNode.type === "[TAG]" ? "#ef4444" : "#10b981" 
-                }}>
-                  {selectedNode.type === "[TAG]" ? "🏷️ Tag" : `${inferDocType(selectedNode.link).icon} ${inferDocType(selectedNode.link).label}`}
-                </span>
+            
+            {loadingPaperInfo && <p>Loading paper info...</p>}
+            {paperError && <p className="text-red-500">{paperError}</p>}
+
+            {paperInfo && (
+              <>
+                <p><strong>Authors:</strong> {paperInfo.author}</p>
+                <p><strong>Abstract:</strong> {paperInfo.abstract || "No abstract available."}</p>
+                <p><strong>Publisher:</strong> {paperInfo.publisher}</p>
+                <p><strong>Date:</strong> {paperInfo.date}</p>
+              </>
+            )}
+            <p>
+              <strong>Type:</strong>{" "}
+              <span
+                style={{
+                  color: selectedNode.type === "[TAG]" ? "#ef4444" : "#10b981",
+                }}
+              >
+                {selectedNode.type === "[TAG]" ? (
+                  "🏷️ Tag"
+                ) : (
+                  <>
+                  {docType?.icon} {docType.label}
+                  </>
+                )}
+              </span>
             </p>
+            
             {selectedNode.link && (
               <a 
                 href={selectedNode.link} 
@@ -385,6 +454,7 @@ export default function EnhancedForceGraphPage() {
           </div>
         </div>
       )}
+
 
       {/* Tag Tree - wrap in a container with toggle */}
       <div style={{ position: 'fixed', bottom: '20px', right: '20px', zIndex: 900 }}>
