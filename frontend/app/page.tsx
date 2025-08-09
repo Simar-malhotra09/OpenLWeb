@@ -5,12 +5,13 @@ import "./styles/home.css";
 // const ForceGraph3D = dynamic(() => import("react-force-graph").then(mod => mod.ForceGraph3D), {
 //   ssr: false,
 // });
-
+import { inferDocType } from "./lib/utils/infer_node_type";
 import dynamic from 'next/dynamic';
 const ForceGraph3D = dynamic(() => import('react-force-graph-3d'), { ssr: false });
 
 // import ForceGraph3D from "react-force-graph-3d";
 import { useRef, MutableRefObject } from "react";
+import TagTreeSitter from "../components/tag-treesitter.tsx";
 
 
 interface Node {
@@ -114,31 +115,34 @@ export default function EnhancedForceGraphPage() {
   }, [graphData]);
 
   // Fetch data with better error handling
+  //
   useEffect(() => {
     const fetchGraphData = async () => {
       try {
         setLoading(true);
+
         const res = await fetch("/api/get_data_from_endpoint", { 
           method: "POST",
           headers: {
             'Content-Type': 'application/json',
           }
         });
-        
+
+
         if (!res.ok) {
           throw new Error(`HTTP ${res.status}: ${res.statusText}`);
         }
-        
+
         const data = await res.json();
-        
+
         if (!data.nodes || !data.links || !Array.isArray(data.nodes) || !Array.isArray(data.links)) {
           throw new Error("Invalid graph data format: missing or invalid nodes/links arrays");
         }
-        
+
         if (data.nodes.length === 0) {
           throw new Error("No nodes found in the dataset");
         }
-        
+
         setGraphData(data);
         setError(null);
 
@@ -149,10 +153,9 @@ export default function EnhancedForceGraphPage() {
         } else {
           setError("Failed to load graph data");
         }
+      } finally {
+        setLoading(false);
       }
-      finally{
-          setLoading(false);
-      };
     };
 
     fetchGraphData();
@@ -175,20 +178,19 @@ export default function EnhancedForceGraphPage() {
       );
     }
   }, []);
-
   const handleNodeRightClick = useCallback((node: Node) => {
     if (node.link) {
       window.open(node.link, "_blank", "noopener,noreferrer");
     }
   }, []);
 
-  const handleBackgroundClick = useCallback(() => {
-    setSelectedNode(null);
-  }, []);
+  // const handleBackgroundClick = useCallback(() => {
+  //   setSelectedNode(null);
+  // }, []);
 
   const resetCamera = useCallback(() => {
     if (graphRef.current) {
-      graphRef.current.cameraPosition({ x: 0, y: 0, z: 300 }, { x: 0, y: 0, z: 0 }, 2000);
+      graphRef.current.cameraPosition({ x:50, y: 0, z: 300 }, { x: 0, y: 0, z: 0 }, 2000);
     }
   }, []);
 
@@ -197,6 +199,7 @@ export default function EnhancedForceGraphPage() {
     const timer = setTimeout(() => setShowControls(false), 5000);
     return () => clearTimeout(timer);
   }, []);
+  const [showTagTree, setShowTagTree] = useState(false);
 
   if (loading) {
     return (
@@ -261,61 +264,31 @@ export default function EnhancedForceGraphPage() {
             Retry
           </button>
         </div>
-        <style jsx>{`
-          .graph-container {
-            width: 100vw;
-            height: 100vh;
-            background: linear-gradient(135deg, ${COLORS.background} 0%, #1a1a2e 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-          }
-          .error-container {
-            text-align: center;
-            color: ${COLORS.text};
-            max-width: 400px;
-            padding: 32px;
-            background: ${COLORS.surface};
-            border-radius: 16px;
-            border: 1px solid ${COLORS.border};
-          }
-          .error-icon {
-            font-size: 48px;
-            margin-bottom: 16px;
-          }
-          .error-title {
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 12px;
-            color: ${COLORS.danger};
-          }
-          .error-message {
-            color: ${COLORS.textMuted};
-            margin-bottom: 24px;
-            line-height: 1.5;
-          }
-          .retry-button {
-            background: ${COLORS.primary};
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s ease;
-          }
-          .retry-button:hover {
-            background: ${COLORS.secondary};
-            transform: translateY(-1px);
-          }
-        `}</style>
       </div>
     );
   }
 
   return (
     <div className="graph-container">
+      <div className="app-header">
+        <div className="app-logo">
+          OpenLWeb
+        </div>
+        <div className="header-actions">
+          <a 
+            href="https://github.com/Simar-malhotra09/OpenLWeb" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="github-link"
+            title="View on GitHub"
+          >
+            <img 
+              src="/github-mark/github-mark-white.svg" 
+              alt="GitHub Repository" 
+            />
+          </a>
+        </div>
+      </div>
       {processedGraphData && (
         <ForceGraph3D
           ref={graphRef}
@@ -350,13 +323,14 @@ export default function EnhancedForceGraphPage() {
           linkDirectionalParticleColor={getParticleColor}
           onNodeClick={handleNodeClick}
           onNodeRightClick={handleNodeRightClick}
-          onBackgroundClick={handleBackgroundClick}
+          // onBackgroundClick={handleBackgroundClick}
           enableNodeDrag={true}
           enableNavigationControls={true}
           showNavInfo={false}
         />
       )}
-
+      <div>
+      </div>
       {/* Control Panel */}
       <div className={`controls-panel ${!showControls ? 'hidden' : ''}`}>
         <div className="control-item">
@@ -383,17 +357,21 @@ export default function EnhancedForceGraphPage() {
       >
         {showControls ? '✕' : 'ℹ️'}
       </button>
-
-      {/* Selected Node Info */}
+      {/* Selected Node Info - add the conditional class */}
       {selectedNode && (
-        <div className="node-info-panel">
+        <div className={`node-info-panel ${showTagTree ? 'avoid-overlap' : ''}`}>
           <div className="node-info-header">
-            <h3>{selectedNode.user}</h3>
             <button onClick={() => setSelectedNode(null)}>✕</button>
           </div>
           <div className="node-info-content">
             <p><strong>Title:</strong> {selectedNode.title}</p>
-            <p><strong>Type:</strong> {selectedNode.type}</p>
+            <p><strong>Type:</strong> 
+                <span style={{ 
+                  color: selectedNode.type === "[TAG]" ? "#ef4444" : "#10b981" 
+                }}>
+                  {selectedNode.type === "[TAG]" ? "🏷️ Tag" : `${inferDocType(selectedNode.link).icon} ${inferDocType(selectedNode.link).label}`}
+                </span>
+            </p>
             {selectedNode.link && (
               <a 
                 href={selectedNode.link} 
@@ -408,6 +386,61 @@ export default function EnhancedForceGraphPage() {
         </div>
       )}
 
+      {/* Tag Tree - wrap in a container with toggle */}
+      <div style={{ position: 'fixed', bottom: '20px', right: '20px', zIndex: 900 }}>
+        {!showTagTree ? (
+          <button 
+            onClick={() => setShowTagTree(true)}
+            style={{
+              background: 'rgba(99, 102, 241, 0.9)',
+              color: 'white',
+              border: 'none',
+              borderRadius: '50px',
+              padding: '12px 20px',
+              cursor: 'pointer',
+              fontSize: '14px',
+              fontWeight: '600'
+            }}
+          >
+            🌳 Show Tags
+          </button>
+        ) : (
+          <div style={{
+            background: 'rgba(15, 23, 42, 0.95)',
+            border: '1px solid rgba(255, 255, 255, 0.1)',
+            borderRadius: '16px',
+            backdropFilter: 'blur(20px)',
+            width: '280px',
+            maxHeight: 'calc(100vh - 200px)',
+            overflow: 'hidden'
+          }}>
+            <div 
+              onClick={() => setShowTagTree(false)}
+              style={{
+                padding: '16px',
+                background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+                color: 'white',
+                cursor: 'pointer',
+                fontWeight: '600',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center'
+              }}
+            >
+              <span>🌳 Tag Hierarchy</span>
+              <span>✕</span>
+            </div>
+            <div style={{ 
+              padding: '20px',
+              overflow: 'auto',
+              maxHeight: 'calc(100vh - 380px)'
+            }}>
+              <TagTreeSitter />
+            </div>
+          </div>
+        )}
+    </div>
     </div>
   );
 }
+
