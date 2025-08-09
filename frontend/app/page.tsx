@@ -192,6 +192,7 @@ export default function EnhancedForceGraphPage() {
     const timer = setTimeout(() => setShowControls(false), 5000);
     return () => clearTimeout(timer);
   }, []);
+  const [showTagTree, setShowTagTree] = useState(false);
 
   if (loading) {
     return (
@@ -349,10 +350,9 @@ export default function EnhancedForceGraphPage() {
       >
         {showControls ? '✕' : 'ℹ️'}
       </button>
-
-      {/* Selected Node Info */}
+      {/* Selected Node Info - add the conditional class */}
       {selectedNode && (
-        <div className="node-info-panel">
+        <div className={`node-info-panel ${showTagTree ? 'avoid-overlap' : ''}`}>
           <div className="node-info-header">
             <button onClick={() => setSelectedNode(null)}>✕</button>
           </div>
@@ -377,12 +377,63 @@ export default function EnhancedForceGraphPage() {
             )}
           </div>
         </div>
-      )};
+      )}
 
-    <div className="fixed bottom-1 right-2 -translate-y-1/2 w-64">
-      <TagTreeSitter />
-    </div>     
-
+      {/* Tag Tree - wrap in a container with toggle */}
+      <div style={{ position: 'fixed', bottom: '20px', right: '20px', zIndex: 900 }}>
+        {!showTagTree ? (
+          <button 
+            onClick={() => setShowTagTree(true)}
+            style={{
+              background: 'rgba(99, 102, 241, 0.9)',
+              color: 'white',
+              border: 'none',
+              borderRadius: '50px',
+              padding: '12px 20px',
+              cursor: 'pointer',
+              fontSize: '14px',
+              fontWeight: '600'
+            }}
+          >
+            🌳 Show Tags
+          </button>
+        ) : (
+          <div style={{
+            background: 'rgba(15, 23, 42, 0.95)',
+            border: '1px solid rgba(255, 255, 255, 0.1)',
+            borderRadius: '16px',
+            backdropFilter: 'blur(20px)',
+            width: '280px',
+            maxHeight: 'calc(100vh - 200px)',
+            overflow: 'hidden'
+          }}>
+            <div 
+              onClick={() => setShowTagTree(false)}
+              style={{
+                padding: '16px',
+                background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+                color: 'white',
+                cursor: 'pointer',
+                fontWeight: '600',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center'
+              }}
+            >
+              <span>🌳 Tag Hierarchy</span>
+              <span>✕</span>
+            </div>
+            <div style={{ 
+              padding: '20px',
+              overflow: 'auto',
+              maxHeight: 'calc(100vh - 380px)'
+            }}>
+              <TagTreeSitter />
+            </div>
+          </div>
+        )}
+    </div>
     </div>
   );
 }
+
