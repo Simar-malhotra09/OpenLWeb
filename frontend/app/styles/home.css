@@ -273,4 +273,11 @@
   background: var(--color-secondary);
   transform: translateY(-1px);
 }
+.controls {
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
 
+.controls.fade-out {
+  opacity: 0;
+}

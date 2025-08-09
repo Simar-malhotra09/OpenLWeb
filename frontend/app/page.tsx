@@ -207,9 +207,9 @@ export default function EnhancedForceGraphPage() {
       typeof node.z === "number"
     ) {
       graphRef.current.cameraPosition(
-        { x: node.x * 1.5, y: node.y * 1.5, z: node.z * 1.5 },
+        { x: node.x * 2, y: node.y * 2, z: node.z * 2 },
         node,
-        3000
+        1000
       );
     }
   }, []);
@@ -241,7 +241,7 @@ export default function EnhancedForceGraphPage() {
 
   // Auto-hide controls after 5 seconds
   useEffect(() => {
-    const timer = setTimeout(() => setShowControls(false), 5000);
+    const timer = setTimeout(() => setShowControls(false), 2000);
     return () => clearTimeout(timer);
   }, []);
   const [showTagTree, setShowTagTree] = useState(false);
