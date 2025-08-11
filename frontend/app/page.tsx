@@ -7,8 +7,8 @@ const ForceGraph3D = dynamic(() => import('react-force-graph-3d'), { ssr: false 
 import { useRef, MutableRefObject } from "react";
 
 import TagTreeSitter from "../components/tag-treesitter.tsx";
-import {getPaperData}from "./lib/utils/get_node_data.ts"
-import { inferDocType ,DocTypeInfo } from "./lib/utils/infer_node_type.tsx";
+import {getPaperData}from "./lib/utils/additional-node-info.ts";
+import { inferDocType ,DocTypeInfo } from "./lib/utils/infer-value-type.tsx";
 
 
 
@@ -66,7 +66,7 @@ export default function EnhancedForceGraphPage() {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [selectedNode, setSelectedNode] = useState<Node | null>(null);
-  const [showControls, setShowControls] = useState(true);
+  const [showControls, setShowControls] = useState(false);
   const [paperInfo, setPaperInfo] = useState<WhitePaper | null>(null);
   const [loadingPaperInfo, setLoadingPaperInfo] = useState(false);
   const [paperError, setPaperError] = useState<string | null>(null);
@@ -122,7 +122,7 @@ export default function EnhancedForceGraphPage() {
       try {
         setLoading(true);
 
-        const res = await fetch("/api/get_data_from_endpoint", { 
+        const res = await fetch("/api/get-graph-json", { 
           method: "POST",
           headers: {
             'Content-Type': 'application/json',
@@ -211,6 +211,7 @@ export default function EnhancedForceGraphPage() {
         node,
         1000
       );
+      console.log(node.id);
     }
   }, []);
   const handleNodeRightClick = useCallback((node: Node) => {
@@ -219,18 +220,18 @@ export default function EnhancedForceGraphPage() {
     }
   }, []);
 
-  async function showPaperInfo(title: string) {
-    const data = await getPaperData(title);
-    if (data) {
-      console.log("Title:", data.title);
-      console.log("Authors:", data.author);
-      console.log("Abstract:", data.abstract);
-      console.log("Publisher:", data.publisher);
-      console.log("Date:", data.date);
-    } else {
-      console.log("No data found for title:", title);
-    }
-  }
+  // async function showPaperInfo(title: string) {
+  //   const data = await getPaperData(title);
+  //   if (data) {
+  //     console.log("Title:", data.title);
+  //     console.log("Authors:", data.author);
+  //     console.log("Abstract:", data.abstract);
+  //     console.log("Publisher:", data.publisher);
+  //     console.log("Date:", data.date);
+  //   } else {
+  //     console.log("No data found for title:", title);
+  //   }
+  // }
 
 
   const resetCamera = useCallback(() => {
@@ -368,7 +369,6 @@ export default function EnhancedForceGraphPage() {
           linkDirectionalParticleColor={getParticleColor}
           onNodeClick={handleNodeClick}
           onNodeRightClick={handleNodeRightClick}
-          // onBackgroundClick={handleBackgroundClick}
           enableNodeDrag={true}
           enableNavigationControls={true}
           showNavInfo={false}
@@ -416,12 +416,15 @@ export default function EnhancedForceGraphPage() {
             {loadingPaperInfo && <p>Loading paper info...</p>}
             {paperError && <p className="text-red-500">{paperError}</p>}
 
-            {paperInfo && (
+            {paperInfo && console.log("Paper Info:", paperInfo)(
               <>
-                <p><strong>Authors:</strong> {paperInfo.author}</p>
-                <p><strong>Abstract:</strong> {paperInfo.abstract || "No abstract available."}</p>
-                <p><strong>Publisher:</strong> {paperInfo.publisher}</p>
+                <p><strong> Source:</strong> {paperInfo.dataSource}</p>
                 <p><strong>Date:</strong> {paperInfo.date}</p>
+                <p><strong>Authors:</strong> {paperInfo.author}</p>
+                <p><strong>Publisher:</strong> {paperInfo.publisher || "No publisher available"}</p>
+                <p><strong>Abstract:</strong> {paperInfo.abstract || "No abstract available."}</p>
+
+
               </>
             )}
             <p>
