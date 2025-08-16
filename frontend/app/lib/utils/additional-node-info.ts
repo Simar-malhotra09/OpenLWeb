@@ -1,9 +1,12 @@
-enum DataSource {
+import { parseStringPromise } from "xml2js";
+
+export enum DataSource {
   SemanticScholarByDOI = "semantic-scholar-by-doi",
   SemanticScholarByTitle = "semantic-scholar-by-title",
+  ArxivById = "arxiv-by-id",
 }
 
-interface WhitePaper {
+export interface WhitePaper {
   title: string;
   author: string;
   abstract: string;
@@ -13,82 +16,53 @@ interface WhitePaper {
   dataSource: DataSource;
 }
 
-// extract DOI from a link if present
-function extractDOIFromLink(link: string): string | null {
-  const decodedLink = decodeURIComponent(link);
-  const doiMatch = decodedLink.match(/10\.\d{4,9}\/[-._;()/:A-Z0-9]+/i);
-  return doiMatch ? doiMatch[0] : null;
-}
-
-
-// Query via your API route by DOI
-async function fetchFromSemanticScholarByDOI(doi: string): Promise<WhitePaper | null> {
+export async function fetchFromArxivById(link: string): Promise<WhitePaper | null> {
   try {
-    const res = await fetch(`/api/semantic-scholar?query=DOI:${encodeURIComponent(doi)}`);
-    if (!res.ok) return null;
-    const data = await res.json();
-    
-    // Handle the response structure from your API route
-    if (!data.data || data.data.length === 0) return null;
-    const paper = data.data[0];
-    
+
+    // link is something like: https://arxiv.org/abs/1712.09913
+    const queryList = link.split("/");
+
+    // unique identifier is the last numerical part 1712.09913
+    // sometimes is versioned, for ex:1712.09913v1; we ignore anything after the v
+    let queryId = queryList[queryList.length - 1].split("v")[0];   
+
+    const apiUrl = `https://export.arxiv.org/api/query?search_query=id:${queryId}`;
+    const res = await fetch(apiUrl);
+    const xml = await res.text();
+
+    const parsed = await parseStringPromise(xml, { explicitArray: false });
+
+    const entry = parsed.feed.entry;
+    if (!entry) return null;
+
+    const title = entry.title.trim();
+    const author = Array.isArray(entry.author)
+      ? entry.author.map((a: any) => a.name).join(", ")
+      : entry.author.name;
+    const summary = entry.summary.trim();
+    const published = entry.published;
+    const doi = entry["arxiv:doi"];
+
     return {
-      title: paper.title || "",
-      author: paper.authors?.map((a: any) => a.name).join(", ") || "",
-      abstract: paper.abstract || "",
-      publisher: paper.venue || "",
-      date: paper.year ? paper.year.toString() : "",
-      doi:paper.externalIds.DOI?paper.externalIds.DOI.toString(): "",
-      dataSource: DataSource.SemanticScholarByDOI
+      title,
+      author,
+      abstract: summary,
+      publisher: "arXiv",
+      date: published,
+      doi,
+      dataSource: DataSource.ArxivById,
     };
-  } catch {
+  } catch (err) {
+    console.error("Failed to fetch from arXiv:", err);
     return null;
   }
 }
 
-// Query via your API route by title
-async function fetchFromSemanticScholarByTitle(title: string): Promise<WhitePaper | null> {
-  try {
-    const res = await fetch(`/api/semantic-scholar?query=${encodeURIComponent(title)}`);
-    if (!res.ok) return null;
-    const data = await res.json();
-    
-    if (!data.data || data.data.length === 0) return null;
-    const paper = data.data[0];
-    
-    return {
-      title: paper.title || "",
-      author: paper.authors?.map((a: any) => a.name).join(", ") || "",
-      abstract: paper.abstract || "",
-      publisher: paper.venue || "",
-      date: paper.year ? paper.year.toString() : "",
-      doi:paper.externalIds.DOI?paper.externalIds.DOI.toString(): "",
-      dataSource: DataSource.SemanticScholarByTitle
-
-    };
-  } catch {
-    return null;
+export async function getPaperData(link: string): Promise<WhitePaper> {
+  const res = await fetch(`/api/arxiv?link=${encodeURIComponent(link)}`);
+  if (!res.ok) {
+    throw new Error(`Failed to fetch: ${res.statusText}`);
   }
-}
-
-export async function getPaperData(linkOrTitle: string): Promise<WhitePaper | null> {
-    // Since DOI presence will guarantee an exact match if ss has it, first: 
-
-  const doi = extractDOIFromLink(linkOrTitle);
-
-  if (doi) {
-    const semScholarData = await fetchFromSemanticScholarByDOI(doi);
-    if (semScholarData && semScholarData.abstract.trim()) {
-      return semScholarData;
-    }
-  }
-
-  // fallback to title search
-  const semScholarByTitle = await fetchFromSemanticScholarByTitle(linkOrTitle);
-  if (semScholarByTitle && semScholarByTitle.abstract.trim()) {
-    return semScholarByTitle;
-  }
-
-  return null;
+  return res.json();
 }
 
