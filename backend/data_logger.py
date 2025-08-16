@@ -26,13 +26,13 @@ class Data_Logger:
     def __init__(self, csv_path: str):
         self.csv_path = csv_path
         self.tags = {}
-        print(self.csv_path)
+        # print(self.csv_path)
         if file_exists(self.csv_path):
             self._load_tags()
 
     def _load_tags(self):
         """Load the tags from the CSV file and build the tag count."""
-        print("loading tags! ")
+        # print("loading tags! ")
         df = pd.read_csv(self.csv_path, delimiter=',')
         for tag_path in df["Tag"]:
             tags_list= self.make_tags(tag_path)
@@ -66,7 +66,7 @@ class Data_Logger:
         for tag in child_tags:
             current = f"{current}/{tag}" if current else tag
             tag_list.append(current)
-        print(tag_list)
+        # print(tag_list)
         return tag_list
         # return [parent_tag]
  
@@ -77,15 +77,18 @@ class Data_Logger:
             fields = [f.strip() for f in entry.split(",")]
             if len(fields) < 4 or fields[-1].lower() == "today":
                 fields = fields[:3] + [str(date.today())]
-            logging.info(f"Adding entry {fields} \n")
+            print('-'*50)
+            logging.info(f"Adding entry:\n  Name: {fields[0]}\n  Tag: {fields[1]}\n  Link: {fields[2]}\n  Date: {fields[3]}")
 
             tag_list = self.make_tags(fields[1])
+
+            print('-'*50)
             logging.info(f"Tags generated: {tag_list}\n")
             for tag in tag_list:
                 if tag not in self.tags:
                     self.tags[tag] = 0
                 self.tags[tag] += 1
-            logging.info(f"self.tags: {self.tags}")
+            # logging.info(f"self.tags: {self.tags}")
 
             rows.append(fields)
         df = pd.DataFrame(rows, columns=["Name", "Tag", "Link", "Date Added"])
@@ -94,9 +97,6 @@ class Data_Logger:
     '''
     get_all_tags_and_count: Return list of all user generated tags and count
     get_all_tags_used: Return only tags where count>0
-
-    Next step: Instead of purely returing tags as list, we account for nested tags and return 
-    in a tree? respecting the heirarchy.
     '''
     def get_all_tags_used(self) -> list[str]:
         if file_exists(self.csv_path):
@@ -110,20 +110,20 @@ class Data_Logger:
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("-add", type=str, help="Add entry/entries: comma-delimited fields, semicolon-separated rows")
+    parser.add_argument("-add", type=str, help="Add title, tag, link, date(or alias= today)")
     parser.add_argument("-tags_used", action='store_true', help="Returns all tags with count >0")
     parser.add_argument("-tags", action='store_true', help="Returns all existing tags")
 
     args = parser.parse_args()
 
-    db = Data_Logger("data.csv")
-    db.make_file()
+    dl = Data_Logger("data.csv")
+    dl.make_file()
 
     if args.add:
-        db.add_entry(args.add)
+        dl.add_entry(args.add)
     
     if args.tags_used:
-        tags = db.get_all_tags_used()
+        tags = dl.get_all_tags_used()
         if tags:
             print("Existing Tags:")
             print(tags)
@@ -131,7 +131,8 @@ if __name__ == "__main__":
             print("No tags found.")
 
     if args.tags:
-        tag_counts = db.get_all_tags_and_count()
+        print("---------- printing tags ------------")
+        tag_counts = dl.get_all_tags_and_count()
         if tag_counts:
             for tag, count in tag_counts.items():
                 print(f'Tag: {tag} , count: {count}')
