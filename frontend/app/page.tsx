@@ -8,6 +8,7 @@ import { useRef, MutableRefObject } from "react";
 
 import TagTreeSitter from "../components/tag-treesitter.tsx";
 import {getPaperData}from "./lib/utils/additional-node-info.ts";
+import type {WhitePaper}from "./lib/utils/additional-node-info.ts";
 import { inferDocType ,DocTypeInfo } from "./lib/utils/infer-value-type.tsx";
 
 
@@ -95,7 +96,6 @@ export default function EnhancedForceGraphPage() {
     return (link: Link) => link.type === "[TAG]" ? COLORS.danger : COLORS.primary;
   }, []);
 
-  // Enhanced data processing
   const processedGraphData = useMemo(() => {
     if (!graphData) return null;
     
@@ -115,8 +115,6 @@ export default function EnhancedForceGraphPage() {
     };
   }, [graphData]);
 
-  // Fetch data with better error handling
-  //
   useEffect(() => {
     const fetchGraphData = async () => {
       try {
@@ -169,32 +167,34 @@ export default function EnhancedForceGraphPage() {
   }, [selectedNode?.link]);
 
   useEffect(() => {
-    if (!selectedNode || !docType) { setPaperInfo(null);
+    if (!selectedNode || !docType) {
+      setPaperInfo(null);
       setPaperError(null);
       setLoadingPaperInfo(false);
       return;
     }
 
-    // Only fetch paper info for Whitepaper types
-    if (docType.type === "whitepaper") {
+    if (selectedNode.link?.includes("arxiv")) {
       setLoadingPaperInfo(true);
       setPaperError(null);
+
       getPaperData(selectedNode.link)
-        .then(info => {
+        .then((info) => {
           setPaperInfo(info);
           setLoadingPaperInfo(false);
         })
-        .catch(err => {
+        .catch((err) => {
           setPaperError(err.message || "Failed to load paper info");
           setLoadingPaperInfo(false);
         });
     } else {
-      // Clear paper info if not pdf or whitepaper
+      // Clear paper info if not an arXiv link
       setPaperInfo(null);
       setLoadingPaperInfo(false);
       setPaperError(null);
     }
   }, [selectedNode, docType]);
+
   
   // Event handlers
   //
@@ -416,8 +416,9 @@ export default function EnhancedForceGraphPage() {
             {loadingPaperInfo && <p>Loading paper info...</p>}
             {paperError && <p className="text-red-500">{paperError}</p>}
 
-            {paperInfo && console.log("Paper Info:", paperInfo)(
+            {paperInfo && (
               <>
+                {console.log("Paper Info:", paperInfo)}
                 <p><strong> Source:</strong> {paperInfo.dataSource}</p>
                 <p><strong>Date:</strong> {paperInfo.date}</p>
                 <p><strong>Authors:</strong> {paperInfo.author}</p>
