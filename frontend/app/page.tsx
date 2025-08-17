@@ -2,6 +2,8 @@
 import { useEffect, useState, useMemo, useCallback} from "react";
 import "./styles/home.css";
 import dynamic from 'next/dynamic';
+import SpriteText from "three-spritetext";
+
 const ForceGraph3D = dynamic(() => import('react-force-graph-3d'), { ssr: false });
 
 import { useRef, MutableRefObject } from "react";
@@ -71,6 +73,7 @@ export default function EnhancedForceGraphPage() {
   const [paperInfo, setPaperInfo] = useState<WhitePaper | null>(null);
   const [loadingPaperInfo, setLoadingPaperInfo] = useState(false);
   const [paperError, setPaperError] = useState<string | null>(null);
+  const [draggedNodeId, setDraggedNodeId] = useState<string | null>(null);
   
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
  const graphRef: MutableRefObject<any> = useRef(null);
@@ -220,18 +223,13 @@ export default function EnhancedForceGraphPage() {
     }
   }, []);
 
-  // async function showPaperInfo(title: string) {
-  //   const data = await getPaperData(title);
-  //   if (data) {
-  //     console.log("Title:", data.title);
-  //     console.log("Authors:", data.author);
-  //     console.log("Abstract:", data.abstract);
-  //     console.log("Publisher:", data.publisher);
-  //     console.log("Date:", data.date);
-  //   } else {
-  //     console.log("No data found for title:", title);
-  //   }
-  // }
+  // const handleNodeDrag = useCallback((node: any) => {
+  //   setDraggedNodeId(node.id); 
+  // }, []);
+  //
+  // const handleNodeDragEnd = useCallback((node: any) => {
+  //   setDraggedNodeId(null); 
+  // }, []);
 
 
   const resetCamera = useCallback(() => {
@@ -339,6 +337,20 @@ export default function EnhancedForceGraphPage() {
         <ForceGraph3D
           ref={graphRef}
           graphData={processedGraphData}
+
+          onNodeDrag={(node: Node) => {
+              setDraggedNodeId(node.id);
+          }}
+          onNodeDragEnd={() => {
+              setDraggedNodeId(null);
+          }}
+        
+          nodeOpacity={(node: Node) =>
+
+            draggedNodeId === null || draggedNodeId === node.id ? 1 : 0.5
+          }
+
+
           backgroundColor={COLORS.background}
           nodeLabel={(node: Node) => `
             <div style="
@@ -358,6 +370,7 @@ export default function EnhancedForceGraphPage() {
             </div>
           `}
           nodeColor={getNodeColor}
+          nodeOpacity={0.5}
           nodeRelSize={NODE_SIZE}
           nodeVal={(node: Node) => node.val || 5}
           linkColor={getLinkColor}
