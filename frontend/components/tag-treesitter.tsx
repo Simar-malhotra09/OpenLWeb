@@ -1,9 +1,9 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 interface Node {
   id: string;
-  user?: string;
+  user: string;
   title: string;
   link?: string;
   type: string;
@@ -25,122 +25,124 @@ interface GraphData {
 }
 
 interface TreeNode {
-  node: Node;
+  node: Node | null;
   children: TreeNode[];
   depth: number;
-  root?: boolean;
+  title: string;
 }
 
-export default function TagTreeSitter() {
-  const [graphData, setGraphData] = useState<GraphData | null>(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+type Props = {
+  graphData: GraphData | null;
+  onGoToNode?: (node: Node) => void;
+};
+
+export default function TagTreeSitter({ graphData, onGoToNode }: Props) {
   const [collapsed, setCollapsed] = useState<Record<string, boolean>>({});
 
-  useEffect(() => {
-    const fetchGraphData = async () => {
-      try {
-        setLoading(true);
-        const res = await fetch("/api/get-graph-json", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-        });
+  if (!graphData) return <div>No graph data available</div>;
 
-        if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
-        const data = await res.json();
-        if (!Array.isArray(data.nodes)) throw new Error("Invalid graph data format");
-        setGraphData(data);
-      } catch (err: unknown) {
-        setError(err instanceof Error ? err.message : "Failed to load graph data");
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchGraphData();
-  }, []);
-
-  // Build hierarchy from tag nodes
   const buildTagHierarchyFromTitles = (tagNodes: Node[]): TreeNode[] => {
-    type TempNode = { title: string; nodeId?: string; children: Record<string, TempNode> };
+    type TempNode = { 
+      title: string; 
+      node?: Node;
+      children: Record<string, TempNode> 
+    };
+    
     const root: Record<string, TempNode> = {};
 
-    for (const n of tagNodes) {
-      const parts = n.title.split("/");
+    for (const node of tagNodes) {
+      const parts = node.title.split("/");
       let current = root;
+      
       parts.forEach((part, index) => {
         if (!current[part]) {
           current[part] = { title: part, children: {} };
         }
+        
         if (index === parts.length - 1) {
-          current[part].nodeId = n.id;
+          current[part].node = node;
         }
+        
         current = current[part].children;
       });
     }
 
     const convert = (nodeMap: Record<string, TempNode>, depth = 0): TreeNode[] =>
-      Object.values(nodeMap).map((node) => ({
-        node: {
-          id: node.nodeId || `${depth}-${node.title}`,
-          title: node.title,
-          type: "[TAG]",
-        },
+      Object.values(nodeMap).map((tempNode) => ({
+        node: tempNode.node || null,
+        title: tempNode.title,
         depth,
-        children: convert(node.children, depth + 1),
+        children: convert(tempNode.children, depth + 1),
       }));
 
     return convert(root, 0);
   };
 
-  // Recursive render component
-  const TreeNodeComponent = ({ treeNode }: { treeNode: TreeNode }) => {
+  const TreeNodeComponent = ({ treeNode, path = "" }: { treeNode: TreeNode; path?: string }) => {
     const hasChildren = treeNode.children.length > 0;
-    const isCollapsed = collapsed[treeNode.node.id];
+    const nodeKey = `${path}/${treeNode.title}`;
+    const isCollapsed = collapsed[nodeKey];
+    const isActualNode = treeNode.node !== null;
 
     const handleToggle = () => {
       if (hasChildren) {
         setCollapsed((prev) => ({
           ...prev,
-          [treeNode.node.id]: !prev[treeNode.node.id],
+          [nodeKey]: !prev[nodeKey],
         }));
       }
     };
 
     const handleRightClick = (e: React.MouseEvent) => {
       e.preventDefault();
-      console.log("Go to node:", treeNode.node.id);
+      
+      if (isActualNode && treeNode.node && onGoToNode) {
+        // Just pass the node - let the parent component handle the navigation
+        // The parent has access to the graph ref and can find the positioned node
+        console.log("Requesting navigation to tag:", treeNode.node.id);
+        onGoToNode(treeNode.node);
+      }
     };
-
-    const indentStyle = { marginLeft: `${treeNode.depth * 12}px` };
 
     return (
       <div>
         <div
-          className="flex items-center text-sm cursor-pointer select-none"
-          style={indentStyle}
+          style={{ 
+            marginLeft: `${treeNode.depth * 16}px`,
+            padding: '4px 8px',
+            cursor: isActualNode ? 'pointer' : hasChildren ? 'pointer' : 'default',
+            borderRadius: '4px',
+            color: isActualNode ? '#ef4444' : '#e2e8f0',
+            fontSize: '14px',
+            fontWeight: isActualNode ? '600' : '400',
+            transition: 'all 0.2s ease',
+          }}
           onClick={handleToggle}
           onContextMenu={handleRightClick}
-        >
-          {hasChildren ? (
-            <span className="mr-1 text-gray-400">{isCollapsed ? "▶" : "▼"}</span>
-          ) : (
-            <span className="mr-1 text-transparent">•</span>
-          )}
-          <span
-            className={
-              treeNode.depth === 0
-                ? "text-purple-400 font-semibold"
-                : "text-gray-300"
+          onMouseEnter={(e) => {
+            if (isActualNode) {
+              e.currentTarget.style.backgroundColor = 'rgba(239, 68, 68, 0.1)';
             }
-          >
-            {hasChildren ? treeNode.node.title : `-${treeNode.node.title}`}
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.backgroundColor = 'transparent';
+          }}
+          title={isActualNode ? "Right-click to navigate to this tag" : ""}
+        >
+          <span style={{ marginRight: '8px', opacity: 0.7 }}>
+            {hasChildren ? (isCollapsed ? "▶" : "▼") : isActualNode ? "🏷️" : "•"}
           </span>
+          {treeNode.title}
         </div>
-
+        
         {hasChildren && !isCollapsed && (
           <div>
-            {treeNode.children.map((child) => (
-              <TreeNodeComponent key={child.node.id} treeNode={child} />
+            {treeNode.children.map((child, index) => (
+              <TreeNodeComponent 
+                key={`${nodeKey}/${child.title}/${index}`} 
+                treeNode={child} 
+                path={nodeKey}
+              />
             ))}
           </div>
         )}
@@ -148,23 +150,34 @@ export default function TagTreeSitter() {
     );
   };
 
-  // Render states
-  if (loading) return <div className="text-gray-400 text-sm">Loading tags...</div>;
-  if (error) return <div className="text-red-400 text-sm">Error: {error}</div>;
-  if (!graphData) return null;
-
   const tagNodes = graphData.nodes.filter((n) => n.type === "[TAG]");
   const tagHierarchy = buildTagHierarchyFromTitles(tagNodes);
 
+  if (tagNodes.length === 0) {
+    return (
+      <div style={{ color: '#64748b', fontStyle: 'italic' }}>
+        No tags found in the graph
+      </div>
+    );
+  }
+
   return (
-    <div className="text-xs font-mono bg-transparent text-white">
-      {tagHierarchy.map((rootNode) => (
-        <TreeNodeComponent key={rootNode.node.id} treeNode={rootNode} />
+    <div style={{ fontSize: '14px', lineHeight: '1.4' }}>
+      <div style={{ 
+        marginBottom: '12px', 
+        color: '#64748b', 
+        fontSize: '12px',
+        fontStyle: 'italic' 
+      }}>
+        Right-click on tags to navigate
+      </div>
+      {tagHierarchy.map((rootNode, index) => (
+        <TreeNodeComponent 
+          key={`root-${rootNode.title}-${index}`} 
+          treeNode={rootNode} 
+          path=""
+        />
       ))}
     </div>
   );
 }
-
-
-
-
