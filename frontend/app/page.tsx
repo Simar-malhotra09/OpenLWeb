@@ -198,25 +198,113 @@ export default function EnhancedForceGraphPage() {
     }
   }, [selectedNode, docType]);
 
-  
-  // Event handlers
-  //
-  const handleNodeClick = useCallback((node: Node) => {
-    setSelectedNode(node);
-    if (
-      graphRef.current &&
-      typeof node.x === "number" &&
-      typeof node.y === "number" &&
-      typeof node.z === "number"
-    ) {
-      graphRef.current.cameraPosition(
-        { x: node.x * 2, y: node.y * 2, z: node.z * 2 },
-        node,
-        1000
-      );
-      console.log(node.id);
+
+  const goToNode = useCallback((node: Node) => {
+    console.log("goToNode called with:", node.id);
+    
+    if (!graphRef.current || !processedGraphData) {
+      console.error("Graph ref or processed data not available");
+      return;
     }
-  }, []);
+
+    const targetNode = processedGraphData.nodes.find((n: Node) => n.id === node.id);
+    
+    if (!targetNode) {
+      console.error("Node not found in graph data");
+      return;
+    }
+
+    setSelectedNode(targetNode);
+
+    const attemptNavigation = (attempts = 0) => {
+      const maxAttempts = 15; // Increased attempts
+      
+      if (attempts >= maxAttempts) {
+        console.error("Failed to navigate after", maxAttempts, "attempts");
+        return;
+      }
+
+      // check if the node has been positioned by the force simulation
+      const currentNodes = graphRef.current?.scene?.children;
+      let foundPositionedNode = null;
+
+      try {
+        if (typeof targetNode.x === "number" && 
+            typeof targetNode.y === "number" && 
+            typeof targetNode.z === "number" &&
+            !isNaN(targetNode.x) && 
+            !isNaN(targetNode.y) && 
+            !isNaN(targetNode.z) &&
+            (Math.abs(targetNode.x) > 0.001 || Math.abs(targetNode.y) > 0.001 || Math.abs(targetNode.z) > 0.001)) {
+          
+          foundPositionedNode = targetNode;
+        }
+        
+        if (foundPositionedNode) {
+          console.log(`Navigation successful on attempt ${attempts + 1}:`, {
+            id: foundPositionedNode.id,
+            coordinates: { 
+              x: foundPositionedNode.x, 
+              y: foundPositionedNode.y, 
+              z: foundPositionedNode.z 
+            }
+          });
+          
+          const distance = 150; 
+          const cameraX = foundPositionedNode.x + distance;
+          const cameraY = foundPositionedNode.y + distance;  
+          const cameraZ = foundPositionedNode.z + distance;
+
+          // Navigate camera 
+          try {
+            graphRef.current.cameraPosition(
+              { x: cameraX, y: cameraY, z: cameraZ },
+              foundPositionedNode,
+              1200 
+            );
+            console.log("Camera navigation initiated successfully");
+          } catch (cameraError) {
+            console.error("Camera positioning failed:", cameraError);
+          }
+        
+          return;
+        }
+      } catch (error) {
+        console.log(`Attempt ${attempts + 1} error:`, error);
+      }
+
+      // Node not positioned yet, retry after a delay
+      console.log(`Attempt ${attempts + 1}: Node not positioned yet, retrying in ${50 + attempts * 25}ms...`);
+      setTimeout(() => attemptNavigation(attempts + 1), 50 + attempts * 25);
+    };
+
+    // Start the navigation attempts
+    attemptNavigation();
+  }, [processedGraphData]);
+
+  useEffect(() => {
+    if (graphRef.current && processedGraphData) {
+      // Give the graph some time to initialize and position nodes
+      const initTimer = setTimeout(() => {
+        console.log("Graph initialization period complete, ready for navigation");
+      }, 2000);
+      
+      return () => clearTimeout(initTimer);
+    }
+  }, [processedGraphData]);
+
+  const handleNodeClick = useCallback((node: Node) => {
+      goToNode(node);
+      console.log(node.id);
+      console.log(
+          "coordinates:",
+          node.x,
+          node.y,
+          node.z
+      );
+
+  }, [goToNode]);
+
   const handleNodeRightClick = useCallback((node: Node) => {
     if (node.link) {
       window.open(node.link, "_blank", "noopener,noreferrer");
@@ -332,6 +420,7 @@ export default function EnhancedForceGraphPage() {
             />
           </a>
         </div>
+        
       </div>
       {processedGraphData && (
         <ForceGraph3D
@@ -522,7 +611,7 @@ export default function EnhancedForceGraphPage() {
               overflow: 'auto',
               maxHeight: 'calc(100vh - 380px)'
             }}>
-              <TagTreeSitter />
+              <TagTreeSitter graphData= {processedGraphData} onGoToNode={goToNode}/>
             </div>
           </div>
         )}
