@@ -13,8 +13,8 @@ def file_exists(filepath: str) -> bool:
 async def expose_json_data():
     try:
         base_dir = os.path.dirname(os.path.abspath(__file__))
-        csv_path = os.path.join(base_dir, "data.csv")
-        json_path = os.path.abspath(os.path.join(base_dir, "../frontend/output_graph.json"))
+        csv_path = os.path.join(base_dir, "papers_ideas.csv")
+        json_path = os.path.abspath(os.path.join(base_dir, "../frontend/output_graph_paper_ideas.json"))
         print(f"Resolved paths:\nCSV: {csv_path}\nJSON: {json_path}")
 
         if not file_exists(csv_path):
