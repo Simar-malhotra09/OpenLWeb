@@ -3,7 +3,7 @@ import os
 import argparse
 from datetime import date
 import logging 
-
+from enum import Enum
 
 def file_exists(csv_path: str) -> bool:
     return os.path.exists(csv_path)
@@ -13,16 +13,42 @@ logging.basicConfig(
     format="%(asctime)s - %(levelname)s - %(message)s", 
 )
 
+class TAG_TYPE(Enum):
+    PROP
+    PAPER
+    NOTE
+
+
 class Data_Logger:
     '''
     csv_path: Here we store the raw data, it can be added simply by running `python data_logger.py -add 
         
-        [NAME] Bad Beta, Good Beta, 
-        [TAG] FINANCE/MARKET_NEUTRALITY,                                        *(can be nested)
-        [LINK] https://papers.ssrn.com/sol3/papers.cfm?abstract_id=383420,
-        [DATE] today                                                            *(this auto gets the date
+        [Entry],
+        [TAG],
+        [LINK],
         ;`                                                                       *(can add multiple objs seperated by `;`)
+
+        [TAG] can be of three types: 
+        class _TAG_TYPE(Enum):
+            PROP=" central goal/proposition/question"
+            PAPER="whitepaper(s) related to a specific prop"
+            NOTE="your notes related to a prop or its papers "
+
+        NOTE(s)->PAPER or
+        NOTE(s)->Prop or 
+        PAPER(s)-> Prop,
+
+        where -> is a link
+
+        The way each appending the graph works it as follows:
+        Adding PROP: "How does spatial relationship of objects in ViTs work?", "PROP", " " (link is not needed in this case) 
+        Adding PAPER: "Why Is Spatial Reasoning Hard for VLMs?", PAPER,https://arxiv.org/abs/2503.01773,
+        Adding NOTE TO PAPER: "Here's why this paper is interesting xyz", NOTE, "" 
+        Adding NOTE TO PROP: 
+        
     '''
+
+
     def __init__(self, csv_path: str):
         self.csv_path = csv_path
         self.tags = {}
@@ -31,7 +57,7 @@ class Data_Logger:
             self._load_tags()
 
     def _load_tags(self):
-        """Load the tags from the CSV file and build the tag count."""
+        """Load each tag and its count."""
         print("loading tags! ")
         df = pd.read_csv(self.csv_path, delimiter=',')
         for tag_path in df["Tag"]:
