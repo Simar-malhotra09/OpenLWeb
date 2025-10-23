@@ -9,6 +9,7 @@ app = FastAPI()
 
 def file_exists(filepath: str) -> bool:
     return os.path.exists(filepath) and os.path.isfile(filepath)
+
 @app.post("/expose_json_data")
 async def expose_json_data():
     try:
