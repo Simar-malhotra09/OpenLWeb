@@ -3,6 +3,7 @@ import pandas as pd
 import json
 import hashlib
 from data_logger import Data_Logger, file_exists
+from enum import Enum 
 
 def generate_id(string) -> str:
     if not isinstance(string, str) or not string.strip():
@@ -41,6 +42,7 @@ class Graph:
         tag_ids = {}
         entry_ids = set()
 
+        #--------------------- Here rn.
         # 1. Create nodes for tags
         for tag in self.logger.get_all_tags_and_count():
             if tag is None:
